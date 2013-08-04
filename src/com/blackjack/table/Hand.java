@@ -5,14 +5,14 @@ import java.util.ArrayList;
 import com.blackjack.cards.Card;
 
 public class Hand {
-	
+
 	private ArrayList<Card> hand = new ArrayList<Card>();
 
 	public Hand(ArrayList<Card> hand) {
 		super();
 		this.hand = hand;
 	}
-	
+
 	public void add(Card card) {
 		hand.add(card);
 	}
@@ -28,5 +28,16 @@ public class Hand {
 	public Hand() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+	public String toString() {
+		String handAsString = null;
+		for (Card c : hand) {
+			if (handAsString == null)
+				handAsString = c.toString();
+			else
+				handAsString += ("\n" + c.toString());
+		}
+		return handAsString;
 	}
 }

@@ -33,4 +33,9 @@ public class PlayController {
 	public boolean pickPlay(Play play, Card dealerCard, Hand playerHand) {
 		return strategy.checkPlay(play, dealerCard, playerHand);
 	}
+
+	public void setShoe(Shoe shoe) {
+		this.shoe = shoe;
+		
+	}
 }

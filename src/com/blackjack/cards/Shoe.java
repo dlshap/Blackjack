@@ -37,6 +37,7 @@ public class Shoe {
 	private void setupDeckStacker(DeckStacker deckStacker) {
 		this.deckStacker = deckStacker;
 		this.deckStacker.setShoe(this);
+		buildShoe();
 	}
 
 	public void setDeckStacker(DeckStacker deckStacker) {
