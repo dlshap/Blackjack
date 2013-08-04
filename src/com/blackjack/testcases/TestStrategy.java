@@ -1,6 +1,7 @@
 package com.blackjack.testcases;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -10,6 +11,7 @@ import com.blackjack.cards.InvalidCardException;
 import com.blackjack.strategy.BasicStrategy;
 import com.blackjack.strategy.Strategy;
 import com.blackjack.table.Hand;
+import com.blackjack.table.Play;
 
 public class TestStrategy {
 	
@@ -37,7 +39,7 @@ public class TestStrategy {
 			assertFalse("Invalid Card",true);
 		}
 		
-		assertEquals("Hit",strategy.getCorrectPlay(dealerCard, playerHand));
+		assertEquals(true,strategy.checkPlay(new Play(), dealerCard, playerHand));
 
 				
 	}

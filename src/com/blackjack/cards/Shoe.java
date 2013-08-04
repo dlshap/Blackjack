@@ -37,12 +37,9 @@ public class Shoe {
 	private void setupDeckStacker(DeckStacker deckStacker) {
 		this.deckStacker = deckStacker;
 		this.deckStacker.setShoe(this);
-		this.deckStacker.buildShoe();
 	}
 
 	public void setDeckStacker(DeckStacker deckStacker) {
-		shoe.clear();
-		discardPile.clear();
 		setupDeckStacker(deckStacker);
 	}
 
@@ -76,5 +73,11 @@ public class Shoe {
 			shoeString += shoe.get(i).toString();
 		}
 		return shoeString;
+	}
+
+	public void buildShoe() {
+		shoe.clear();
+		discardPile.clear();
+		this.deckStacker.buildShoe();
 	}
 }

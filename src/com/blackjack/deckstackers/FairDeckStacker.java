@@ -1,7 +1,5 @@
 package com.blackjack.deckstackers;
 
-import com.blackjack.cards.Card;
-import com.blackjack.cards.InvalidCardException;
 
 public class FairDeckStacker extends DeckStacker {
 

@@ -14,7 +14,7 @@ public class TestPairsOnlyDeckStacker {
 
 	@Test
 	public void test() {
-		Shoe shoe = new Shoe(); // one-deck shoe
+		Shoe shoe = new Shoe(1); // one-deck shoe
 		shoe.setDeckStacker(new PairsOnlyDeckStacker());
 //		 System.out.println(deck);
 		 System.out.println(shoe.toString());
