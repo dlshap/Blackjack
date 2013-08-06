@@ -69,13 +69,13 @@ public class PairsOnlyDeckStacker extends DeckStacker {
 
 	private void buildDecks(int numberOfDecks) {
 		// 13 card values x 4 suits x number of decks
-		for (int i = 0; i < 13; i++) {
+		for (int i = 1; i <= 13; i++) {
 			//shuffle the suits
 			ArrayList<Card> shuffleSuits = new ArrayList<Card>();
-			for (int j = 0; j < 4; j++) {
-				for (int k = 0; k < numberOfDecks; k++) {
+			for (int j = 1; j <= 4; j++) {
+				for (int k = 1; k <= numberOfDecks; k++) {
 					try {
-						shuffleSuits.add(new Card((i + 1), (j + 1)));
+						shuffleSuits.add(new Card(i,j));
 					} catch (InvalidCardException e) {
 						e.printStackTrace();
 					}
@@ -84,6 +84,7 @@ public class PairsOnlyDeckStacker extends DeckStacker {
 			Collections.shuffle(shuffleSuits); // shuffle the suits
 			for (Card c : shuffleSuits) {
 				decks.add(c);
+//				System.out.println(c.toString());
 			}
 		}
 	}

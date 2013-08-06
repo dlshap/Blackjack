@@ -9,7 +9,11 @@ public class PlayerView {
 	
 	private PlayController playCtr;
 	private Card dealerCard;
-	private Hand playerHand;
+	private Hand playerHand = new Hand();
+	
+	public void startPlay() {
+		deal();
+	}
 	
 	public void deal() {
 		playerHand.add(playCtr.deal());
@@ -29,11 +33,10 @@ public class PlayerView {
 
 	private void showCards() {
 		// TODO Auto-generated method stub
-		System.out.println("Player: "+playerHand.toString()+"\n\nDealer: "+dealerCard.toString());
+		System.out.println("Player:\n"+playerHand.toString()+"\n\nDealer: "+dealerCard.toString());
 	}
 
 	public void setPlayCtr(PlayController playCtr) {
 		this.playCtr = playCtr;
 	}
-
 }
