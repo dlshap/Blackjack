@@ -5,6 +5,7 @@ import java.util.Collections;
 
 import com.blackjack.cards.Card;
 import com.blackjack.cards.InvalidCardException;
+import com.blackjack.cards.Shoe;
 
 public class PairsOnlyDeckStacker extends DeckStacker {
 
@@ -14,6 +15,7 @@ public class PairsOnlyDeckStacker extends DeckStacker {
 
 	public PairsOnlyDeckStacker() {
 		super(false); // never shuffle pairs-only
+		
 	}
 
 	@Override

@@ -6,7 +6,7 @@ import com.blackjack.cards.Shoe;
 
 public abstract class DeckStacker {
 	
-	protected boolean shuffle = true;
+	private boolean shuffle = true;
 	protected Shoe shoe;
 	
 	public DeckStacker() {
@@ -21,12 +21,20 @@ public abstract class DeckStacker {
 	public void setShoe(Shoe shoe) {
 		this.shoe = shoe;
 	}
+	
+	protected Shoe getShoe() {
+		return this.shoe;
+	}
+	
+	protected boolean getShuffle() {
+		return shuffle;
+	}
 
 	public abstract void buildShoe();
 		
 	public void addCard(int num, int suit) {
 		try {
-			shoe.add(new Card(num, suit));
+			this.shoe.add(new Card(num, suit));
 		} catch (InvalidCardException e) {
 			System.out.println("Problem building card deck.");
 		}

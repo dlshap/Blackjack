@@ -16,11 +16,11 @@ public class FairDeckStacker extends DeckStacker {
 		for (int i = 1; i < 14; i++) {
 			// loop through suits 1-4: Spades, Hearts, Diamonds, Clubs
 			for (int j = 1; j < 5; j++) {
-				for (int k = 0; k < shoe.getNumberOfDecks(); k++)
+				for (int k = 0; k < getShoe().getNumberOfDecks(); k++)
 					addCard(i, j);
 			}
 		}
-		if (shuffle)
+		if (getShuffle())
 			shoe.shuffle();
 	}
 

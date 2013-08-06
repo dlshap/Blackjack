@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import com.blackjack.deckstackers.DeckStacker;
+import com.blackjack.deckstackers.DeckStackerFactory;
 import com.blackjack.deckstackers.FairDeckStacker;
 
 public class Shoe {
@@ -31,7 +32,7 @@ public class Shoe {
 	}
 
 	private void ShoeInit() {
-		setupDeckStacker(new FairDeckStacker());
+		setupDeckStacker(DeckStackerFactory.getFairDeckStacker());
 	}
 
 	private void setupDeckStacker(DeckStacker deckStacker) {
