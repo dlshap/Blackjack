@@ -23,7 +23,8 @@ public class PlayerView {
 	}
 	
 	public void playerMove(Play play) {
-		boolean result = playCtr.pickPlay(play, dealerCard, playerHand);
+		//play the next move
+		boolean result = playCtr.checkPlay(play, dealerCard, playerHand);
 		showResult(result);
 	}
 

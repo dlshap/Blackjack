@@ -9,14 +9,23 @@ public class PlayConfig {
 	private boolean drillOnPairs = true;
 	private boolean drillOnSoftHands = true;
 	private boolean drillOnHardHands = true;
+	private String strategy;
 
 	public PlayConfig() {
 		super();
+		
+		getSettings();
+	}
+
+	private void getSettings() {
 		//temporarily (until loading from file):
 		deckCount = 1;
 		drillOnPairs = true;
 		drillOnSoftHands = false;
 		drillOnHardHands = false;
+		strategy = "Basic";
+
+		
 	}
 
 	public int getDeckCount() {

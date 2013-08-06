@@ -3,6 +3,7 @@ package com.blackjack.table;
 import com.blackjack.cards.Card;
 import com.blackjack.cards.EmptyShoeException;
 import com.blackjack.cards.Shoe;
+import com.blackjack.deckstackers.DeckStackerFactory;
 import com.blackjack.deckstackers.FairDeckStacker;
 import com.blackjack.deckstackers.PairsOnlyDeckStacker;
 import com.blackjack.strategy.Strategy;
@@ -22,9 +23,9 @@ public class PlayController {
 	private void pickDeckStacker() {
 		// if only pairs, use that deck stacker; otherwise use fair deck stacker (fair deck) 
 		if (playConfig.isDrillOnPairs() && (!playConfig.isDrillOnHardHands()) && (!playConfig.isDrillOnSoftHands()))
-			shoe.setDeckStacker(new PairsOnlyDeckStacker());
+			shoe.setDeckStacker(DeckStackerFactory.getPairsOnlyDeckStacker());
 		else
-			shoe.setDeckStacker(new FairDeckStacker());		// for now this is only other option
+			shoe.setDeckStacker(DeckStackerFactory.getFairDeckStacker());		// for now this is only other option
 	}
 
 	private void createShoe() {
@@ -52,7 +53,7 @@ public class PlayController {
 		return nextCard;
 	}
 
-	public boolean pickPlay(Play play, Card dealerCard, Hand playerHand) {
+	public boolean checkPlay(Play play, Card dealerCard, Hand playerHand) {
 		return strategy.checkPlay(play, dealerCard, playerHand);
 	}
 
