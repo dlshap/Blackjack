@@ -6,9 +6,9 @@ public class PlayConfig {
 	// Initially, hard-code values...add config file later
 	
 	private int deckCount;
-	private boolean drillOnPairs = true;
-	private boolean drillOnSoftHands = true;
-	private boolean drillOnHardHands = true;
+	private boolean drillOnPairs;
+	private boolean drillOnSoftHands;
+	private boolean drillOnHardHands;
 	private String strategy;
 
 	public PlayConfig() {
@@ -42,6 +42,10 @@ public class PlayConfig {
 
 	public boolean isDrillOnHardHands() {
 		return drillOnHardHands;
+	}
+	
+	public String getStrategy() {
+		return strategy;
 	}
 	
 	
