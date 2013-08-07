@@ -6,7 +6,16 @@ import com.blackjack.table.Play;
 
 public class BasicStrategy implements Strategy {
 	
-	Play play = Play.createPlay();
+	
+	
+	private BasicStrategy() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	public static BasicStrategy createBasicStrategy() {
+		return new BasicStrategy();
+	}
 
 	@Override
 	public Play getPlay(Card dealerCard, Hand playerHand) {

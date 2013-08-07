@@ -15,13 +15,12 @@ public class PlayController {
 
 	private PlayController() {
 		super();
-	}
+		createShoe();
+		pickDeckStacker();
+}
 
 	public static PlayController createPlayController() {
-		PlayController playController = new PlayController();
-		playController.createShoe();
-		playController.pickDeckStacker();
-		return playController;
+		return new PlayController();
 	}
 
 	private void pickDeckStacker() {

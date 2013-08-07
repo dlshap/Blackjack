@@ -5,5 +5,5 @@ import com.blackjack.strategy.Strategy;
 
 public class TableController {
 	private PlayController playController;
-	private Strategy strategy = new BasicStrategy();
+	private Strategy strategy;
 }

@@ -29,7 +29,7 @@ public class TestStrategy {
 	@Test
 	public void testBasicStrategy() {
 		
-		strategy = new BasicStrategy();
+		strategy = BasicStrategy.createBasicStrategy();
 		
 		try {
 		dealerCard = new Card(6,1);
