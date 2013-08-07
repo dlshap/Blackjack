@@ -5,13 +5,9 @@ import com.blackjack.table.PlayController;
 
 public class RunDrill {
 	
-	private PlayController playCtr;
-	private PlayerView playerView;
-
 	public void play() {
-		playCtr = new PlayController();
-		playerView = new PlayerView();
-		playerView.setPlayCtr(playCtr);
+		PlayerView playerView = PlayerView.createPlayerView();
+		playerView.setPlayCtr(PlayController.createPlayController());
 		playerView.startPlay();
 	}
 

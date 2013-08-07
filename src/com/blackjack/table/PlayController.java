@@ -13,26 +13,25 @@ public class PlayController {
 	private Strategy strategy;
 	private Shoe shoe;
 
-	public PlayController() {
+	private PlayController() {
 		super();
-		createShoe();
-		pickDeckStacker();
+	}
+
+	public static PlayController createPlayController() {
+		PlayController playController = new PlayController();
+		playController.createShoe();
+		playController.pickDeckStacker();
+		return playController;
 	}
 
 	private void pickDeckStacker() {
 		// if only pairs, use that deck stacker; otherwise use fair deck stacker
-		// (fair deck)
 		if (playConfig.isDrillOnPairs() && (!playConfig.isDrillOnHardHands())
 				&& (!playConfig.isDrillOnSoftHands()))
 			shoe.setDeckStacker(DeckStackerFactory.getPairsOnlyDeckStacker());
 		else
-			shoe.setDeckStacker(DeckStackerFactory.getFairDeckStacker()); // for
-																			// now
-																			// this
-																			// is
-																			// only
-																			// other
-																			// option
+			// for now this is only other option...later we'll have more stackers
+			shoe.setDeckStacker(DeckStackerFactory.getFairDeckStacker());
 	}
 
 	private void createShoe() {
@@ -50,14 +49,8 @@ public class PlayController {
 	}
 
 	private Card reshuffleShoe() {
-		Card nextCard = null;
 		shoe.buildShoe();
-		try {
-			nextCard = shoe.nextCard();
-		} catch (EmptyShoeException e) {
-			System.out.println("Fatal Error...can't reshuffle");
-		}
-		return nextCard;
+		return deal();
 	}
 
 	public boolean checkPlay(Play play, Card dealerCard, Hand playerHand) {

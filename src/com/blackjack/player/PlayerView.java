@@ -7,9 +7,17 @@ import com.blackjack.table.PlayController;
 
 public class PlayerView {
 	
+	private PlayerView() {
+		super();
+	}
+
 	private PlayController playCtr;
 	private Card dealerCard;
 	private Hand playerHand = new Hand();
+	
+	public static PlayerView createPlayerView() {
+		return new PlayerView();
+	}
 	
 	public void startPlay() {
 		deal();
