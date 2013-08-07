@@ -1,6 +1,6 @@
-package com.blackjack.table;
+package com.blackjack;
 
-public class PlayConfig {
+public class GameConfig {
 	// Load the configuration file and apply to game
 	//
 	// Initially, hard-code values...add config file later
@@ -11,7 +11,7 @@ public class PlayConfig {
 	private boolean drillOnHardHands;
 	private String strategy;
 
-	public PlayConfig() {
+	public GameConfig() {
 		super();
 		
 		getSettings();

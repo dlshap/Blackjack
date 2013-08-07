@@ -1,5 +1,6 @@
 package com.blackjack.table;
 
+import com.blackjack.GameConfig;
 import com.blackjack.cards.Card;
 import com.blackjack.cards.EmptyShoeException;
 import com.blackjack.cards.Shoe;
@@ -8,7 +9,7 @@ import com.blackjack.strategy.Strategy;
 
 public class PlayController {
 
-	private PlayConfig playConfig = new PlayConfig();
+	private GameConfig playConfig = new GameConfig();
 	private Strategy strategy;
 	private Shoe shoe;
 
