@@ -1,7 +1,7 @@
 package com.blackjack.table;
 
 public class Play {
-	public final String[] playChoices = {"Hit","Stand","Double","Split","Withdraw"};
+	public final String[] PLAYCHOICE = {"Hit","Stand","Double","Split","Insure","Withdraw"};
 	
 	private String choice;	
 

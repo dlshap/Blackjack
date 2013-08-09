@@ -7,6 +7,13 @@ import com.blackjack.table.Play;
 public class BasicStrategy implements Strategy {
 	
 	
+	//	Strategy table
+	//
+	//	Play.
+	//
+	//	Player		| Dealer Card
+	//	Card | Card | Ace | 2 | 3 | ... | 13 |
+	//	  A	 |   A  |     | 
 	
 	private BasicStrategy() {
 		super();
