@@ -1,9 +1,18 @@
 package com.blackjack.table;
 
 public class Play {
-	public final String[] PLAYCHOICE = {"Hit","Stand","Double","Split","Insure","Withdraw"};
-	
-	private String choice;	
+	// 0 = Hit, 1 = Stand, 2 = Double ...
+	static public final String[] PLAYCHOICE = { "Hit", "Stand", "Double",
+			"Split", "Insure", "Withdraw" };
+
+	private String choice;
+
+	static String choiceName(int choice) {
+		if (choice >= 0 && choice < PLAYCHOICE.length)
+			return PLAYCHOICE[choice];
+		else
+			return "Bad Choice";
+	}
 
 	public static Play createNoPlay() {
 		Play play = new Play();
@@ -20,9 +29,7 @@ public class Play {
 	}
 
 	public static Play createPlay() {
-		return createNoPlay();			
-	}	
-	
-	
+		return createNoPlay();
+	}
 
 }
