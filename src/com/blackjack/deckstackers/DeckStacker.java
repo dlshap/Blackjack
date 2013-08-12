@@ -32,12 +32,12 @@ public abstract class DeckStacker {
 
 	public abstract void buildShoe();
 		
-	public void addCard(int num, int suit) {
-		try {
-			this.shoe.add(new Card(num, suit));
-		} catch (InvalidCardException e) {
-			System.out.println("Problem building card deck.");
-		}
-	}
+//	public void addCard(int num, int suit) {
+//		try {
+//			this.shoe.add(new Card(num, suit));
+//		} catch (InvalidCardException e) {
+//			System.out.println("Problem building card deck.");
+//		}
+//	}
 
 }

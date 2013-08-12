@@ -1,56 +1,95 @@
 package com.blackjack.testcases;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+
+import org.junit.Before;
 import org.junit.Test;
 
 import com.blackjack.cards.Card;
-import com.blackjack.cards.InvalidCardException;
+import com.blackjack.cards.Card.Rank;
+import com.blackjack.cards.Card.Suit;
 
 public class TestCard {
+	ArrayList<Card> deck1;
+	ArrayList<Card> deck2;
 
-	private String[] values = { "Ace", "2", "3", "4", "5", "6", "7", "8", "9",
-			"Ten", "Jack", "Queen", "King" };
+	@Before
+	public void setUp() throws Exception {
+
+	}
+
+	private void makeDecks() {
+		deck1 = Card.newDeck();
+		deck2 = Card.newDeck();
+	}
+
+	@Test
+	public void testRank() {
+
+		makeDecks();
+		Card c1 = deck1.get(0);
+		Card c2 = deck2.get(0);
+		assertTrue(c1.equals(c2));
+		c2 = deck2.get(1);
+		assertFalse(c1.equals(c2));
+	}
+
+	@Test
+	public void testSuit() {
+		makeDecks();
+		Iterator<Card> cardIter = deck1.iterator();
+		for (Suit suit : Card.Suit.values()) {
+			for (Rank rank : Card.Rank.values()) {
+				Card c = cardIter.next();
+				Rank r = c.rank();
+				int faceValue = c.faceValue();
+				assertTrue(c.rank().equals(rank));
+			}
+		}
+
+	}
 
 	@Test
 	public void testToString() {
-		assert (false);
-		try {
-			Card c = new Card(5, Card.Clubs);
-			assertEquals(c.toString(), "5 of Clubs");
-			c = new Card(1, Card.Spades);
-			assertEquals(c.toString(), "Ace of Spades");
-			for (int i = 0; i < 13; i++) {
-				c = new Card(i + 1, Card.Spades);
-				assertEquals(c.toString(), values[i] + " of " + "Spades");
-				c = new Card(i + 1, Card.Hearts);
-				assertEquals(c.toString(), values[i] + " of " + "Hearts");
-				c = new Card(i + 1, Card.Clubs);
-				assertEquals(c.toString(), values[i] + " of " + "Clubs");
-				c = new Card(i + 1, Card.Diamonds);
-				assertEquals(c.toString(), values[i] + " of " + "Diamonds");
+		makeDecks();
+		Iterator<Card> cardIter = deck1.iterator();
+		for (Suit suit : Card.Suit.values()) {
+			for (Rank rank : Card.Rank.values()) {
+				Card c = cardIter.next();
+				assertTrue(c.toString().equals(
+						c.rank().toString() + " of " + c.suit().toString()));
 			}
-		} catch (InvalidCardException e) {
-			System.out.println("Bad catch");
-			assertFalse("Caught InvalidCardException, but shouldn't have", true);
 		}
 	}
 
-	@Test(expected = InvalidCardException.class)
-	public void testBadCard1() throws InvalidCardException {
-		Card badCard;
-		badCard = new Card(0, 0);
-	}
-	@Test(expected = InvalidCardException.class)
-	public void testBadCard2() throws InvalidCardException {
-		Card badCard;
-		badCard = new Card(1, 0);
-	}
-	@Test(expected = InvalidCardException.class)
-	public void testBadCard3() throws InvalidCardException {
-		Card badCard;
-		badCard = new Card(0, 1);
+	@Test
+	public void testNewDeck() {
+		makeDecks();
+		assertTrue(deck1.equals(deck2));
+		deck2.remove(0);
+		assertFalse(deck1.equals(deck2));
 	}
 
+	@Test
+	public void testCompareTo() {
+		makeDecks();
+		Iterator<Card> cardIter = deck1.iterator();
+//		System.out.println(deck1.toString());
+		Collections.shuffle(deck1);
+//		System.out.println(deck1.toString());
+		Collections.sort(deck1);
+//		System.out.println(deck1.toString());
+		for (Rank r: Card.Rank.values()) {
+			for (Suit s:Card.Suit.values()) {
+				Card c = cardIter.next();
+				assertTrue(c.rank().equals(r));
+				assertTrue(c.suit().equals(s));
+			}
+		}
+	}
 }

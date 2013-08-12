@@ -31,13 +31,7 @@ public class TestStrategy {
 		
 		strategy = BasicStrategy.createBasicStrategy();
 		
-		try {
-		dealerCard = new Card(6,1);
-		playerHand.add(new Card(3,1));
-		playerHand.add(new Card(5,1));
-		} catch (InvalidCardException e) {
-			assertFalse("Invalid Card",true);
-		}
+		
 		
 //		assertEquals(true,strategy.checkPlay(new Play(), dealerCard, playerHand));
 

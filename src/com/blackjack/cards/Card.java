@@ -1,41 +1,83 @@
 package com.blackjack.cards;
 
-public class Card {
-	
-	public static final int Spades = 1;
-	public static final int Hearts = 2;
-	public static final int Diamonds = 3;
-	public static final int Clubs = 4;
+import java.util.ArrayList;
+import java.util.List;
 
-	private int faceValue = 0;		// card face faceValue (1-13)
-	private int suit = 0;		// card suit (1-4)
-	private String[] faceValues = {"Ace","2","3","4","5","6","7","8","9","Ten","Jack","Queen","King"};
-	private String[] suits = {"Spades","Hearts","Diamonds","Clubs"};
+public class Card implements Comparable<Card> {
+	
+	public enum Suit {
+		SPADES, HEARTS, DIAMONDS, CLUBS
+	}
 
-	public Card(int faceValue, int suit) throws InvalidCardException {
-		// TODO Auto-generated constructor stub
-		if (faceValue >= 1 && faceValue <=13)
-			this.faceValue = faceValue;
-		else throw new InvalidCardException("Face value must be from 1 to 13");
-		if (suit >= 1 && suit <= 4)
-			this.suit = suit;
-		else throw new InvalidCardException("Suit must be from 1 to 4");
+	public enum Rank {
+		ACE(1), DEUCE(2), THREE(3), FOUR(4), FIVE(5), SIX(6), SEVEN(7), EIGHT(8), NINE(
+				9), TEN(10), JACK(10), QUEEN(10), KING(10);
+		private final int faceValue;
+
+		Rank(int value) {
+			this.faceValue = value;
+		}
+		
+		int faceValue() {
+			return this.faceValue;
+		}
 	}
-	
-	public String toString() {
-		if (faceValue == 0 || suit == 0)
-			return("Bad Card");
-		else
-			return(faceValues[faceValue-1]+" of "+suits[suit-1]);
+
+	private final Rank rank;
+	private final Suit suit;
+	private final int faceValue;
+
+	private Card(Rank rank, Suit suit) {
+		this.rank = rank;
+		this.suit = suit;
+		this.faceValue = rank.faceValue();
 	}
-	
-	public int getFaceValue() {
+
+	public Rank rank() {
+		return rank;
+	}
+
+	public int faceValue() {
 		return faceValue;
 	}
 
-	public int getSuit() {
+	public Suit suit() {
 		return suit;
 	}
-	
 
+	public String toString() {
+		return rank + " of " + suit;
+	}
+
+	private static final List<Card> protoDeck = new ArrayList<Card>();
+
+	// Initialize prototype deck
+	static {
+		for (Suit suit : Suit.values())
+			for (Rank rank : Rank.values())
+				protoDeck.add(new Card(rank, suit));
+	}
+
+	public static ArrayList<Card> newDeck() {
+		return new ArrayList<Card>(protoDeck); // Return copy of prototype deck
+	}
+
+	public boolean equals(Card card) {
+		if ((this.rank.equals(card.rank)) && (this.suit.equals(card.suit)))
+			return true;
+		else
+			return false;
+	}
+	
+	public boolean faceEquals(Card card) {
+		return (this.faceValue() == card.faceValue());
+	}
+
+	
+	public int compareTo(Card c) {
+		if (!(this.rank() == c.rank()))
+				return this.rank().compareTo(c.rank());
+		else
+			return this.suit().compareTo(c.suit());
+	}
 }

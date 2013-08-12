@@ -24,14 +24,7 @@ public class TestBasicStrategy {
 		Strategy basicStrategy = BasicStrategy.createBasicStrategy();
 		Hand playerHand = new Hand();
 		Card dealerCard = null;
-		try {
-			dealerCard = new Card(4, 1);
-			playerHand.add(new Card(2, 2));
-			playerHand.add(new Card(2, 3));
-		} catch (InvalidCardException e) {
-			System.out.println("Bad catch");
-			assertFalse("Caught InvalidCardException, but shouldn't have", true);
-		}
+		
 		Play play1 = Play.createSplit();
 		Play splitPlay = Play.createSplit();
 		System.out.println(play1.equals(splitPlay));
