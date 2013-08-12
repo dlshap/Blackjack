@@ -22,7 +22,7 @@ public class BasicStrategy implements Strategy {
 	public Play getPlay(Card dealerCard, Hand playerHand) {
 		
 		
-		return Play.createNoPlay();
+		return Play.createSplit();
 	}
 	
 	
