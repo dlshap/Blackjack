@@ -17,8 +17,6 @@ public class Shoe {
 			.synchronizedList(new ArrayList<Card>());
 	private DeckStacker deckStacker;
 
-	// private Iterator<Card> cardIter = shoe.iterator();
-
 	public Shoe() {
 		super();
 		// TODO Auto-generated constructor stub

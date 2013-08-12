@@ -1,5 +1,9 @@
 package com.blackjack.deckstackers;
 
+import java.util.ArrayList;
+
+import com.blackjack.cards.Card;
+
 
 public class FairDeckStacker extends DeckStacker {
 
@@ -13,11 +17,10 @@ public class FairDeckStacker extends DeckStacker {
 	}
 
 	public void buildShoe() {
-		for (int i = 1; i < 14; i++) {
-			// loop through suits 1-4: Spades, Hearts, Diamonds, Clubs
-			for (int j = 1; j < 5; j++) {
-				for (int k = 0; k < getShoe().getNumberOfDecks(); k++)
-					addCard(i, j);
+		for  (int i=0; i< getShoe().getNumberOfDecks(); i++) {
+			ArrayList<Card> deck = Card.newDeck();
+			for (Card c:deck) {
+				getShoe().add(c);
 			}
 		}
 		if (getShuffle())
