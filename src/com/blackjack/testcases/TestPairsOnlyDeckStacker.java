@@ -1,5 +1,7 @@
 package com.blackjack.testcases;
 
+import static org.junit.Assert.*;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -14,10 +16,10 @@ public class TestPairsOnlyDeckStacker {
 
 	@Test
 	public void test() {
-		Shoe shoe = new Shoe(1); // one-deck shoe
-		shoe.setDeckStacker(new PairsOnlyDeckStacker());
+		Shoe shoe = new Shoe(4, new PairsOnlyDeckStacker()); // one-deck shoe
+		assertTrue(true);
 //		 System.out.println(deck);
-		 System.out.println(shoe.toString());
+//		 System.out.println(shoe.toString());
 //		 assertEquals(deck,shoe.toString());
 	}
 }

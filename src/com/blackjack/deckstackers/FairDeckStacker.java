@@ -9,7 +9,6 @@ public class FairDeckStacker extends DeckStacker {
 
 	public FairDeckStacker() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public FairDeckStacker(boolean shuffle) {
@@ -18,8 +17,7 @@ public class FairDeckStacker extends DeckStacker {
 
 	public void buildShoe() {
 		for  (int i=0; i< getShoe().getNumberOfDecks(); i++) {
-			ArrayList<Card> deck = Card.newDeck();
-			for (Card c:deck) {
+			for (Card c:newDeck) {
 				getShoe().add(c);
 			}
 		}

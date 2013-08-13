@@ -1,13 +1,15 @@
 package com.blackjack.deckstackers;
 
+import java.util.ArrayList;
+
 import com.blackjack.cards.Card;
-import com.blackjack.cards.InvalidCardException;
 import com.blackjack.cards.Shoe;
 
 public abstract class DeckStacker {
 	
 	private boolean shuffle = true;
 	protected Shoe shoe;
+	protected ArrayList<Card> newDeck = Card.newDeck();
 	
 	public DeckStacker() {
 		super();
@@ -32,12 +34,4 @@ public abstract class DeckStacker {
 
 	public abstract void buildShoe();
 		
-//	public void addCard(int num, int suit) {
-//		try {
-//			this.shoe.add(new Card(num, suit));
-//		} catch (InvalidCardException e) {
-//			System.out.println("Problem building card deck.");
-//		}
-//	}
-
 }

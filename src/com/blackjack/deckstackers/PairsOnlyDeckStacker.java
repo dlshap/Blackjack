@@ -2,6 +2,7 @@ package com.blackjack.deckstackers;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 
 import com.blackjack.cards.Card;
 import com.blackjack.cards.InvalidCardException;
@@ -70,24 +71,21 @@ public class PairsOnlyDeckStacker extends DeckStacker {
 	}
 
 	private void buildDecks(int numberOfDecks) {
-		// 13 card values x 4 suits x number of decks
-		for (int i = 1; i <= 13; i++) {
-			//shuffle the suits
+//			//shuffle the suits
 			ArrayList<Card> shuffleSuits = new ArrayList<Card>();
-			for (int j = 1; j <= 4; j++) {
-				for (int k = 1; k <= numberOfDecks; k++) {
-					try {
-						shuffleSuits.add(new Card(i,j));
-					} catch (InvalidCardException e) {
-						e.printStackTrace();
-					}
-				}
+			for (int i = 0; i < numberOfDecks; i++) {
+				shuffleSuits.addAll(newDeck);
 			}
 			Collections.shuffle(shuffleSuits); // shuffle the suits
-			for (Card c : shuffleSuits) {
-				decks.add(c);
-//				System.out.println(c.toString());
+			class RankComparator implements Comparator<Card> {
+				public int compare(Card c1, Card c2) {
+					return (c1.rank().compareTo(c2.rank()));
+				}
 			}
-		}
-	}
+			RankComparator rc = new RankComparator();
+			Collections.sort(shuffleSuits,rc);
+			System.out.println(shuffleSuits.toString());
+			}
+		
+	
 }

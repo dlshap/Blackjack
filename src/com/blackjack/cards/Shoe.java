@@ -20,17 +20,27 @@ public class Shoe {
 	public Shoe() {
 		super();
 		// TODO Auto-generated constructor stub
-		ShoeInit();
+		setupDeckStacker(DeckStackerFactory.getFairDeckStacker());
 	}
 
 	public Shoe(int numberOfDecks) {
 		super();
 		this.numberOfDecks = numberOfDecks;
-		ShoeInit();
+		setupDeckStacker(DeckStackerFactory.getFairDeckStacker());
+	}
+	
+	public Shoe(DeckStacker deckStacker) {
+		super();
+		setupDeckStacker(deckStacker);
+	}
+	
+	public Shoe(int numberOfDecks, DeckStacker deckStacker) {
+		this.numberOfDecks = numberOfDecks;
+		setupDeckStacker(deckStacker);
 	}
 
 	private void ShoeInit() {
-		setupDeckStacker(DeckStackerFactory.getFairDeckStacker());
+		
 	}
 
 	private void setupDeckStacker(DeckStacker deckStacker) {
