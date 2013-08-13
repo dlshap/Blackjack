@@ -19,7 +19,7 @@ public class GameConfig {
 
 	private void getSettings() {
 		//temporarily (until loading from file):
-		deckCount = 1;
+		deckCount = 4;
 		drillOnPairs = true;
 		drillOnSoftHands = false;
 		drillOnHardHands = false;

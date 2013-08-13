@@ -19,7 +19,7 @@ public class TestPairsOnlyDeckStacker {
 		Shoe shoe = new Shoe(4, new PairsOnlyDeckStacker()); // one-deck shoe
 		assertTrue(true);
 //		 System.out.println(deck);
-//		 System.out.println(shoe.toString());
+		 System.out.println(shoe.toString());
 //		 assertEquals(deck,shoe.toString());
 	}
 }

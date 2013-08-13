@@ -72,20 +72,17 @@ public class PairsOnlyDeckStacker extends DeckStacker {
 
 	private void buildDecks(int numberOfDecks) {
 //			//shuffle the suits
-			ArrayList<Card> shuffleSuits = new ArrayList<Card>();
+//			ArrayList<Card> shuffleSuits = new ArrayList<Card>();
 			for (int i = 0; i < numberOfDecks; i++) {
-				shuffleSuits.addAll(newDeck);
+				decks.addAll(newDeck);
 			}
-			Collections.shuffle(shuffleSuits); // shuffle the suits
+			Collections.shuffle(decks); // shuffle the suits
 			class RankComparator implements Comparator<Card> {
 				public int compare(Card c1, Card c2) {
 					return (c1.rank().compareTo(c2.rank()));
 				}
 			}
 			RankComparator rc = new RankComparator();
-			Collections.sort(shuffleSuits,rc);
-			System.out.println(shuffleSuits.toString());
+			Collections.sort(decks,rc);
 			}
-		
-	
 }
