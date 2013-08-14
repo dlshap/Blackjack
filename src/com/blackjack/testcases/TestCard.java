@@ -43,6 +43,7 @@ public class TestCard {
 	public void testSuit() {
 		makeDecks();
 		Iterator<Card> cardIter = deck1.iterator();
+		System.out.println(deck1.toString());
 		for (Suit suit : Card.Suit.values()) {
 			for (Rank rank : Card.Rank.values()) {
 				Card c = cardIter.next();
