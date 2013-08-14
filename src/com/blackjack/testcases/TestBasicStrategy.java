@@ -30,6 +30,7 @@ public class TestBasicStrategy {
 
 		playerHand.add(deck.get(0)); // Ace of spades
 		playerHand.add(deck.get(0)); // Ace of spades
+//		playerHand.add(deck.get(0)); // Ace of spades
 		expectedPlay = Play.createSplit();
 		for (int i = 0; i < 10; i++) {
 			dealerCard = deck.get(i); // Ace of spades

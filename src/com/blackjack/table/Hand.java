@@ -40,4 +40,8 @@ public class Hand {
 		}
 		return handAsString;
 	}
+
+	public int size() {
+		return hand.size();
+	}
 }

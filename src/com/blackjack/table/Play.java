@@ -64,5 +64,9 @@ public class Play {
 	public boolean equals(Play equalsPlay) {
 		return (this.getChoice().equals(equalsPlay.getChoice()));
 	}
+	
+	public String toString() {
+		return getChoice();
+	}
 
 }
