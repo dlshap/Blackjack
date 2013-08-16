@@ -1,17 +1,12 @@
 package com.blackjack.testcases;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-
 import org.junit.Before;
 import org.junit.Test;
 
 import com.blackjack.cards.Card;
-import com.blackjack.cards.InvalidCardException;
 import com.blackjack.strategy.BasicStrategy;
 import com.blackjack.strategy.Strategy;
 import com.blackjack.table.Hand;
-import com.blackjack.table.Play;
 
 public class TestStrategy {
 	

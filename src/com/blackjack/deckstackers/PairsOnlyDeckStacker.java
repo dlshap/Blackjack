@@ -5,8 +5,6 @@ import java.util.Collections;
 import java.util.Comparator;
 
 import com.blackjack.cards.Card;
-import com.blackjack.cards.InvalidCardException;
-import com.blackjack.cards.Shoe;
 
 public class PairsOnlyDeckStacker extends DeckStacker {
 
