@@ -10,12 +10,20 @@ public class PlayerView {
 	private PlayerView() {
 		super();
 	}
+	
+	private PlayerPanel playerPanel;
+	
+	public void setPlayerPanel(PlayerPanel playerPanel) {
+		this.playerPanel = playerPanel;
+	}
 
 	private PlayController playCtr;
 	private Card dealerCard;
 	private Hand playerHand = new Hand();
 	
 	public static PlayerView createPlayerView() {
+		PlayerView playerView = new PlayerView();
+		playerView.setPlayerPanel(PlayerPanel.createPlayerPanel(playerView));
 		return new PlayerView();
 	}
 	
@@ -37,12 +45,12 @@ public class PlayerView {
 	}
 
 	private void showResult(boolean result) {
-		System.out.println(result);		
+//		System.out.println(result);		
 	}
 
 	private void showCards() {
 		// TODO Auto-generated method stub
-		System.out.println("Player:\n"+playerHand.toString()+"\n\nDealer: "+dealerCard.toString());
+//		System.out.println("Player:\n"+playerHand.toString()+"\n\nDealer: "+dealerCard.toString());
 	}
 
 	public void setPlayCtr(PlayController playCtr) {
