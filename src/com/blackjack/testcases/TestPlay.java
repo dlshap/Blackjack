@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.blackjack.table.Play;
+import com.blackjack.player.Play;
 
 public class TestPlay {
 

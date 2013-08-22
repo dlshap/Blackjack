@@ -3,8 +3,8 @@ package com.blackjack.strategy;
 import java.util.ArrayList;
 
 import com.blackjack.cards.Card;
+import com.blackjack.player.Play;
 import com.blackjack.table.Hand;
-import com.blackjack.table.Play;
 
 public class BasicStrategy implements Strategy {
 
@@ -20,7 +20,7 @@ public class BasicStrategy implements Strategy {
 	}
 
 	public Play getPlay(Card dealerCard, Hand playerHand) {
-		Play play = Play.createStand();
+		Play play = Play.STAND;
 		ArrayList<Card> hand = playerHand.getHand();
 		// if hand is two cards only, and it is a pair, get the next play from
 		// the pair strategy array
@@ -36,44 +36,44 @@ public class BasicStrategy implements Strategy {
 	private static void buildPlayForPairs() {
 		for (int i = 0; i < 10; i++) {
 			// Always split aces
-			playForPairs[0][i] = Play.createSplit();
+			playForPairs[0][i] = Play.SPLIT;
 			// Always stand on 10's
-			playForPairs[9][i] = Play.createStand();
+			playForPairs[9][i] = Play.STAND;
 			// Always split 8's
-			playForPairs[7][i] = Play.createSplit();
+			playForPairs[7][i] = Play.SPLIT;
 			// Always hit 4's
-			playForPairs[3][i] = Play.createHit();
+			playForPairs[3][i] = Play.HIT;
 		}
 		// 2's and 3's: Split 4-7; otherwise hit
 		for (int i = 0; i < 10; i++) {
-			playForPairs[1][i] = Play.createHit();
-			playForPairs[2][i] = Play.createHit();
+			playForPairs[1][i] = Play.HIT;
+			playForPairs[2][i] = Play.HIT;
 		}
 		for (int i = 3; i < 7; i++) {
-			playForPairs[1][i] = Play.createSplit();
-			playForPairs[2][i] = Play.createSplit();
+			playForPairs[1][i] = Play.SPLIT;
+			playForPairs[2][i] = Play.SPLIT;
 		}
 		// 5's: Double 2-9; hit 10 & Ace
 		for (int i = 1; i < 8; i++)
-			playForPairs[4][i] = Play.createDouble();
-		playForPairs[4][0] = Play.createHit();
-		playForPairs[4][9] = Play.createHit();
+			playForPairs[4][i] = Play.DOUBLE;
+		playForPairs[4][0] = Play.HIT;
+		playForPairs[4][9] = Play.HIT;
 		// 6's: Split 3-6; otherwise hit
 		for (int i = 0; i < 10; i++)
-			playForPairs[5][i] = Play.createHit();
+			playForPairs[5][i] = Play.HIT;
 		for (int i = 2; i < 6; i++)
-			playForPairs[5][i] = Play.createSplit();
+			playForPairs[5][i] = Play.SPLIT;
 		// 7's: Split 2-7; otherwise hit
 		for (int i = 0; i < 10; i++)
-			playForPairs[6][i] = Play.createHit();
+			playForPairs[6][i] = Play.HIT;
 		for (int i = 1; i < 7; i++)
-			playForPairs[6][i] = Play.createSplit();
+			playForPairs[6][i] = Play.SPLIT;
 		// 9's: Split 2-6 and 8-9; otherwise stand
 		for (int i = 1; i < 9; i++)
-			playForPairs[8][i] = Play.createSplit();
-		playForPairs[8][0] = Play.createStand();
-		playForPairs[8][6] = Play.createStand();
-		playForPairs[8][9] = Play.createStand();
+			playForPairs[8][i] = Play.SPLIT;
+		playForPairs[8][0] = Play.STAND;
+		playForPairs[8][6] = Play.STAND;
+		playForPairs[8][9] = Play.STAND;
 	}
 
 }
