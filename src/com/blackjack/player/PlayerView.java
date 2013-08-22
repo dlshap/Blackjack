@@ -14,9 +14,10 @@ public class PlayerView {
 
 	private PlayerView() {
 		super();
+		playCtr = PlayController.createPlayController();
 	}
 
-	public void setPlayerPanel(PlayerPanel playerPanel) {
+	private void setPlayerPanel(PlayerPanel playerPanel) {
 		this.playerPanel = playerPanel;
 	}
 
@@ -27,7 +28,11 @@ public class PlayerView {
 	}
 
 	public void startPlay() {
-		playCtr.startPlay();
+		playerPanel.disableButton(PlayerPanel.Action.HIT);
+		playerPanel.disableButton(PlayerPanel.Action.STAND);
+		playerPanel.disableButton(PlayerPanel.Action.SPLIT);
+		playerPanel.disableButton(PlayerPanel.Action.DOUBLE);
+//		playCtr.startPlay();
 	}
 
 	public void deal() {
@@ -58,6 +63,6 @@ public class PlayerView {
 	}
 	
 	public void disableHit() {
-		playerPanel.disableButton(PlayerPanel.PlayerAction.HIT);
+		playerPanel.disableButton(PlayerPanel.Action.HIT);
 	}
 }

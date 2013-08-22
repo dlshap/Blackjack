@@ -43,11 +43,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
-
 
 public class PlayerPanel extends JFrame implements ActionListener {
 	final static boolean shouldFill = true;
@@ -55,22 +54,43 @@ public class PlayerPanel extends JFrame implements ActionListener {
 	PlayerView playerView;
 	JPanel panel = new JPanel();
 
-	public enum PlayerAction {
-		HIT(0), STAND(1), SPLIT(2), DOUBLE(3), DEAL(4);
+	public enum Action {
+		HIT(0, "Hit"), STAND(1, "Stand"), SPLIT(2, "Split"), DOUBLE(3, "Double"), DEAL(
+				4, "Deal"), NONE(-1, "None");
 
 		private int index;
+		private String label;
 
-		PlayerAction(int value) {
-			this.index = value;
+		Action(int index, String label) {
+			this.index = index;
+			this.label = label;
+		}
+
+		public int index() {
+			return this.index;
+		}
+
+		public String label() {
+			return this.label;
+		}
+		
+		public static Action action(int index) {
+			for (Action a:Action.values()) {
+				if (a.index() == index)
+					return a;
+			}
+			return Action.NONE;
 		}
 	}
 
-	private JButton[] buttons = new JButton[4];
+	private JButton[] buttons = new JButton[5];
 
 	private PlayerPanel() {
 		initPlayerPanel();
+		setPlayerView(PlayerView.createPlayerView(this));
+		playerView.startPlay();
 	}
-	
+
 	private void initPlayerPanel() {
 		setTitle("BlackJack Drill");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -79,31 +99,34 @@ public class PlayerPanel extends JFrame implements ActionListener {
 		// Set up the content pane.
 		getContentPane().add(panel);
 		addComponentsToPane(panel);
-		
-		buildButtonArray();
+
 		pack();
 		panel.setVisible(true);
 	}
-	
 
-
-	public void disableButton(PlayerAction disableAction) {
-		// TODO Auto-generated method stub
-
+	public void disableButton(Action disableAction) {
+		// disable button having selected Action
+		buttons[disableAction.index].setEnabled(false);
 	}
 
-	private void buildButtonArray() {
-		int componentCount = this.getComponentCount();
-
+	public void enableButton(Action enableAction) {
+		buttons[enableAction.index].setEnabled(true);
 	}
 
-	public void setPlayerView(PlayerView playerView) {
+	private void setPlayerView(PlayerView playerView) {
 		this.playerView = playerView;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		System.out.println(e.getActionCommand());
+		// Figure out the action from the button that got pressed
+		Action buttonAction = Action.NONE;
+		for (int i=0; i<buttons.length; i++) {
+			if (e.getSource().equals(buttons[i])) {
+				buttonAction = Action.action(i);
+			}
+		}
+		System.out.println(buttonAction.toString());		 
 	}
 
 	private static GridBagConstraints defaultConstraints() {
@@ -125,7 +148,8 @@ public class PlayerPanel extends JFrame implements ActionListener {
 
 		pane.setLayout(new GridBagLayout());
 
-		button = new JButton("Deal");
+		button = new JButton(Action.DEAL.label());
+		buttons[Action.DEAL.index()] = button;
 		button.addActionListener(this);
 		constraints = defaultConstraints();
 		constraints.gridx = 0; // aligned with button 2
@@ -168,6 +192,8 @@ public class PlayerPanel extends JFrame implements ActionListener {
 		pane.add(label, constraints);
 
 		button = new JButton("Hit");
+		button = new JButton(Action.HIT.label());
+		buttons[Action.HIT.index()] = button;
 		button.addActionListener(this);
 		constraints = defaultConstraints();
 		constraints.insets = new Insets(60, 0, 0, 0); // top padding
@@ -176,6 +202,8 @@ public class PlayerPanel extends JFrame implements ActionListener {
 		pane.add(button, constraints);
 
 		button = new JButton("Stand");
+		button = new JButton(Action.STAND.label());
+		buttons[Action.STAND.index()] = button;
 		button.addActionListener(this);
 		constraints = defaultConstraints();
 		constraints.insets = new Insets(60, 0, 0, 0); // top padding
@@ -184,6 +212,8 @@ public class PlayerPanel extends JFrame implements ActionListener {
 		pane.add(button, constraints);
 
 		button = new JButton("Split");
+		button = new JButton(Action.SPLIT.label());
+		buttons[Action.SPLIT.index()] = button;
 		button.addActionListener(this);
 		constraints = defaultConstraints();
 		constraints.insets = new Insets(60, 0, 0, 0); // top padding
@@ -192,6 +222,8 @@ public class PlayerPanel extends JFrame implements ActionListener {
 		pane.add(button, constraints);
 
 		button = new JButton("Double");
+		button = new JButton(Action.DOUBLE.label());
+		buttons[Action.DOUBLE.index()] = button;
 		button.addActionListener(this);
 		constraints = defaultConstraints();
 		constraints.insets = new Insets(60, 0, 0, 0); // top padding
@@ -207,7 +239,7 @@ public class PlayerPanel extends JFrame implements ActionListener {
 	 */
 	public static void createPlayerPanel() {
 		// TODO Auto-generated method stub
-		
+
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				PlayerPanel playerPanel = new PlayerPanel();
@@ -215,6 +247,5 @@ public class PlayerPanel extends JFrame implements ActionListener {
 			}
 		});
 	}
-	
 
 }
