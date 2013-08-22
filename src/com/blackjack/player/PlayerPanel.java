@@ -45,25 +45,56 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
-import com.blackjack.table.PlayController;
 
-public class PlayerPanel implements ActionListener {
+
+public class PlayerPanel extends JFrame implements ActionListener {
 	final static boolean shouldFill = true;
 	final static boolean shouldWeightX = true;
 	PlayerView playerView;
+	JPanel panel = new JPanel();
 
-	public static PlayerPanel createPlayerPanel(PlayerView playerView) {
-		PlayerPanel playerPanel = new PlayerPanel();
-		PlayerPanel.createAndShowGUI();
-		
-		playerPanel.setPlayerView(playerView);
-		return playerPanel;
+	public enum PlayerAction {
+		HIT(0), STAND(1), SPLIT(2), DOUBLE(3), DEAL(4);
+
+		private int index;
+
+		PlayerAction(int value) {
+			this.index = value;
+		}
+	}
+
+	private JButton[] buttons = new JButton[4];
+
+	private PlayerPanel() {
+		initPlayerPanel();
 	}
 	
-	private PlayerPanel() {
-		super();
-		// TODO Auto-generated constructor stub
+	private void initPlayerPanel() {
+		setTitle("BlackJack Drill");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLocation(200, 200);
+
+		// Set up the content pane.
+		getContentPane().add(panel);
+		addComponentsToPane(panel);
+		
+		buildButtonArray();
+		pack();
+		panel.setVisible(true);
+	}
+	
+
+
+	public void disableButton(PlayerAction disableAction) {
+		// TODO Auto-generated method stub
+
+	}
+
+	private void buildButtonArray() {
+		int componentCount = this.getComponentCount();
+
 	}
 
 	public void setPlayerView(PlayerView playerView) {
@@ -74,7 +105,7 @@ public class PlayerPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		System.out.println(e.getActionCommand());
 	}
-	
+
 	private static GridBagConstraints defaultConstraints() {
 		GridBagConstraints constraints = new GridBagConstraints();
 		if (shouldFill) {
@@ -87,21 +118,16 @@ public class PlayerPanel implements ActionListener {
 		return constraints;
 	}
 
-	private static void addComponentsToPane(Container pane) {
+	private void addComponentsToPane(Container pane) {
 		JButton button;
 		JLabel label;
 		GridBagConstraints constraints;
-		PlayerPanel panel = new PlayerPanel();
 
 		pane.setLayout(new GridBagLayout());
 
 		button = new JButton("Deal");
-		button.addActionListener(panel);
+		button.addActionListener(this);
 		constraints = defaultConstraints();
-		// constraints.ipady = 0; // reset to default
-		// constraints.weighty = 1.0; // request any extra vertical space
-		// constraints.anchor = GridBagConstraints.PAGE_END; // bottom of space
-//		constraints.insets = new Insets(100, 0, 0, 0); // top padding
 		constraints.gridx = 0; // aligned with button 2
 		constraints.gridwidth = 2; // 2 columns wide
 		constraints.gridy = 0; // third row
@@ -137,13 +163,12 @@ public class PlayerPanel implements ActionListener {
 
 		label = new JLabel("ACE OF HEARTS");
 		constraints = defaultConstraints();
-		// constraints.insets = new Insets(20, 0, 0, 0); // top padding
 		constraints.gridx = 1;
 		constraints.gridy = 3;
 		pane.add(label, constraints);
 
 		button = new JButton("Hit");
-		button.addActionListener(panel);
+		button.addActionListener(this);
 		constraints = defaultConstraints();
 		constraints.insets = new Insets(60, 0, 0, 0); // top padding
 		constraints.gridx = 0;
@@ -151,7 +176,7 @@ public class PlayerPanel implements ActionListener {
 		pane.add(button, constraints);
 
 		button = new JButton("Stand");
-		button.addActionListener(panel);
+		button.addActionListener(this);
 		constraints = defaultConstraints();
 		constraints.insets = new Insets(60, 0, 0, 0); // top padding
 		constraints.gridx = 1;
@@ -159,7 +184,7 @@ public class PlayerPanel implements ActionListener {
 		pane.add(button, constraints);
 
 		button = new JButton("Split");
-		button.addActionListener(panel);
+		button.addActionListener(this);
 		constraints = defaultConstraints();
 		constraints.insets = new Insets(60, 0, 0, 0); // top padding
 		constraints.gridx = 2;
@@ -167,7 +192,7 @@ public class PlayerPanel implements ActionListener {
 		pane.add(button, constraints);
 
 		button = new JButton("Double");
-		button.addActionListener(panel);
+		button.addActionListener(this);
 		constraints = defaultConstraints();
 		constraints.insets = new Insets(60, 0, 0, 0); // top padding
 		constraints.gridx = 3;
@@ -180,29 +205,16 @@ public class PlayerPanel implements ActionListener {
 	 * Create the GUI and show it. For thread safety, this method should be
 	 * invoked from the event-dispatching thread.
 	 */
-	private static void createAndShowGUI() {
-		// Create and set up the window.
-		JFrame frame = new JFrame("Blackjack Drill");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	public static void createPlayerPanel() {
+		// TODO Auto-generated method stub
 		
-//		frame.add(new RunDrillPanel());
-
-		// Set up the content pane.
-		addComponentsToPane(frame.getContentPane());
-
-		// Display the window.
-		frame.setLocation(400, 400);
-		frame.pack();
-		frame.setVisible(true);
+		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				PlayerPanel playerPanel = new PlayerPanel();
+				playerPanel.setVisible(true);
+			}
+		});
 	}
+	
 
-//	public static void main(String[] args) {
-//		// Schedule a job for the event-dispatching thread:
-//		// creating and showing this application's GUI.
-//		javax.swing.SwingUtilities.invokeLater(new Runnable() {
-//			public void run() {
-//				createAndShowGUI();
-//			}
-//		});
-//	}
 }

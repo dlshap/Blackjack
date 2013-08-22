@@ -1,4 +1,4 @@
-package com.blackjack.table;
+package com.blackjack.player;
 
 import com.blackjack.GameConfig;
 import com.blackjack.cards.Card;
@@ -6,6 +6,8 @@ import com.blackjack.cards.EmptyShoeException;
 import com.blackjack.cards.Shoe;
 import com.blackjack.deckstackers.DeckStackerFactory;
 import com.blackjack.strategy.Strategy;
+import com.blackjack.table.Hand;
+import com.blackjack.table.Play;
 
 public class PlayController {
 
@@ -62,5 +64,10 @@ public class PlayController {
 	public void setShoe(Shoe shoe) {
 		this.shoe = shoe;
 
+	}
+
+	public void startPlay() {
+		// TODO Auto-generated method stub
+		
 	}
 }

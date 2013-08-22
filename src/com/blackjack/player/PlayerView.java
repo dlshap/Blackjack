@@ -3,57 +3,61 @@ package com.blackjack.player;
 import com.blackjack.cards.Card;
 import com.blackjack.table.Hand;
 import com.blackjack.table.Play;
-import com.blackjack.table.PlayController;
 
 public class PlayerView {
-	
+
+	private PlayerPanel playerPanel;
+	private PlayController playCtr;
+	private Hand dealerHand = new Hand();
+	private Hand playerHand = new Hand();
+	private Card dealerShowCard;
+
 	private PlayerView() {
 		super();
 	}
-	
-	private PlayerPanel playerPanel;
-	
+
 	public void setPlayerPanel(PlayerPanel playerPanel) {
 		this.playerPanel = playerPanel;
 	}
 
-	private PlayController playCtr;
-	private Card dealerCard;
-	private Hand playerHand = new Hand();
-	
-	public static PlayerView createPlayerView() {
+	public static PlayerView createPlayerView(PlayerPanel playerPanel) {
 		PlayerView playerView = new PlayerView();
-		playerView.setPlayerPanel(PlayerPanel.createPlayerPanel(playerView));
-		return new PlayerView();
+		playerView.setPlayerPanel(playerPanel);
+		return playerView;
 	}
-	
+
 	public void startPlay() {
-		deal();
+		playCtr.startPlay();
 	}
-	
+
 	public void deal() {
 		playerHand.add(playCtr.deal());
-		dealerCard = playCtr.deal();
+		dealerShowCard = playCtr.deal();
+		dealerHand.add(dealerShowCard);
 		playerHand.add(playCtr.deal());
 		showCards();
 	}
-	
+
 	public void playerMove(Play play) {
-		//play the next move
-		boolean result = playCtr.checkPlay(play, dealerCard, playerHand);
+		// play the next move
+		boolean result = playCtr.checkPlay(play, dealerShowCard, playerHand);
 		showResult(result);
 	}
 
 	private void showResult(boolean result) {
-//		System.out.println(result);		
+		// System.out.println(result);
 	}
 
 	private void showCards() {
 		// TODO Auto-generated method stub
-//		System.out.println("Player:\n"+playerHand.toString()+"\n\nDealer: "+dealerCard.toString());
+		// System.out.println("Player:\n"+playerHand.toString()+"\n\nDealer: "+dealerCard.toString());
 	}
 
 	public void setPlayCtr(PlayController playCtr) {
 		this.playCtr = playCtr;
+	}
+	
+	public void disableHit() {
+		playerPanel.disableButton(PlayerPanel.PlayerAction.HIT);
 	}
 }
