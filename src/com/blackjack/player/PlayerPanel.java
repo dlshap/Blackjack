@@ -43,10 +43,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import com.blackjack.player.PlayerView.Action;
 
 public class PlayerPanel extends JFrame implements ActionListener {
 	final static boolean shouldFill = true;
@@ -54,34 +55,7 @@ public class PlayerPanel extends JFrame implements ActionListener {
 	PlayerView playerView;
 	JPanel panel = new JPanel();
 
-	public enum Action {
-		HIT(0, "Hit"), STAND(1, "Stand"), SPLIT(2, "Split"), DOUBLE(3, "Double"), DEAL(
-				4, "Deal"), NONE(-1, "None");
-
-		private int index;
-		private String label;
-
-		Action(int index, String label) {
-			this.index = index;
-			this.label = label;
-		}
-
-		public int index() {
-			return this.index;
-		}
-
-		public String label() {
-			return this.label;
-		}
-		
-		public static Action action(int index) {
-			for (Action a:Action.values()) {
-				if (a.index() == index)
-					return a;
-			}
-			return Action.NONE;
-		}
-	}
+	
 
 	private JButton[] buttons = new JButton[5];
 
@@ -106,11 +80,11 @@ public class PlayerPanel extends JFrame implements ActionListener {
 
 	public void disableButton(Action disableAction) {
 		// disable button having selected Action
-		buttons[disableAction.index].setEnabled(false);
+		buttons[disableAction.index()].setEnabled(false);
 	}
 
 	public void enableButton(Action enableAction) {
-		buttons[enableAction.index].setEnabled(true);
+		buttons[enableAction.index()].setEnabled(true);
 	}
 
 	private void setPlayerView(PlayerView playerView) {
@@ -121,12 +95,12 @@ public class PlayerPanel extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// Figure out the action from the button that got pressed
 		Action buttonAction = Action.NONE;
-		for (int i=0; i<buttons.length; i++) {
+		for (int i = 0; i < buttons.length; i++) {
 			if (e.getSource().equals(buttons[i])) {
 				buttonAction = Action.action(i);
 			}
 		}
-		System.out.println(buttonAction.toString());		 
+		playerView.buttonPressed(buttonAction);
 	}
 
 	private static GridBagConstraints defaultConstraints() {
@@ -148,7 +122,7 @@ public class PlayerPanel extends JFrame implements ActionListener {
 
 		pane.setLayout(new GridBagLayout());
 
-		button = new JButton(Action.DEAL.label());
+		button = new JButton(Action.DEAL.toString());
 		buttons[Action.DEAL.index()] = button;
 		button.addActionListener(this);
 		constraints = defaultConstraints();
@@ -192,7 +166,7 @@ public class PlayerPanel extends JFrame implements ActionListener {
 		pane.add(label, constraints);
 
 		button = new JButton("Hit");
-		button = new JButton(Action.HIT.label());
+		button = new JButton(Action.HIT.toString());
 		buttons[Action.HIT.index()] = button;
 		button.addActionListener(this);
 		constraints = defaultConstraints();
@@ -202,7 +176,7 @@ public class PlayerPanel extends JFrame implements ActionListener {
 		pane.add(button, constraints);
 
 		button = new JButton("Stand");
-		button = new JButton(Action.STAND.label());
+		button = new JButton(Action.STAND.toString());
 		buttons[Action.STAND.index()] = button;
 		button.addActionListener(this);
 		constraints = defaultConstraints();
@@ -212,7 +186,7 @@ public class PlayerPanel extends JFrame implements ActionListener {
 		pane.add(button, constraints);
 
 		button = new JButton("Split");
-		button = new JButton(Action.SPLIT.label());
+		button = new JButton(Action.SPLIT.toString());
 		buttons[Action.SPLIT.index()] = button;
 		button.addActionListener(this);
 		constraints = defaultConstraints();
@@ -222,7 +196,7 @@ public class PlayerPanel extends JFrame implements ActionListener {
 		pane.add(button, constraints);
 
 		button = new JButton("Double");
-		button = new JButton(Action.DOUBLE.label());
+		button = new JButton(Action.DOUBLE.toString());
 		buttons[Action.DOUBLE.index()] = button;
 		button.addActionListener(this);
 		constraints = defaultConstraints();
