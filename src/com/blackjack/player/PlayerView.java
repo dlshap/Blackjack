@@ -14,6 +14,7 @@ public class PlayerView {
 	private PlayerView() {
 		super();
 		playCtr = PlayController.createPlayController();
+		playCtr.setPlayerView(this);
 	}
 
 	private void setPlayerPanel(PlayerPanel playerPanel) {
@@ -27,11 +28,7 @@ public class PlayerView {
 	}
 
 	public void startPlay() {
-		playerPanel.disableButton(Play.HIT);
-		playerPanel.disableButton(Play.STAND);
-		playerPanel.disableButton(Play.SPLIT);
-		playerPanel.disableButton(Play.DOUBLE);
-//		playCtr.startPlay();
+		playCtr.startPlay();
 	}
 
 	public void deal() {
@@ -60,13 +57,39 @@ public class PlayerView {
 	public void setPlayCtr(PlayController playCtr) {
 		this.playCtr = playCtr;
 	}
-	
-//	public void disableHit() {
-//		playerPanel.disableButton(Action.HIT);
-//	}
+
+	// public void disableHit() {
+	// playerPanel.disableButton(Action.HIT);
+	// }
 
 	public void buttonPressed(Play buttonAction) {
-		System.out.println(buttonAction.toString());
-		
+		switch (buttonAction) {
+		case DEAL:
+			System.out.println(playCtr.deal().toString());
+			break;
+		default:
+			System.out.println(buttonAction.toString());
+		}
+
+	}
+
+	public void disableButton(Play play) {
+		playerPanel.disableButton(play);
+
+	}
+
+	public void enableButton(Play play) {
+		playerPanel.enableButton(play);
+
+	}
+
+	public void disableAllButtons() {
+		playerPanel.disableAllButtons();
+
+	}
+
+	public void enableAllButtons() {
+		playerPanel.enableAllButtons();
+
 	}
 }

@@ -13,6 +13,7 @@ public class PlayController {
 	private GameConfig playConfig = new GameConfig();
 	private Strategy strategy;
 	private Shoe shoe;
+	private PlayerView playerView;
 
 	private PlayController() {
 		super();
@@ -66,7 +67,33 @@ public class PlayController {
 	}
 
 	public void startPlay() {
+		setupPanelForNewGame();
+		waitForPlay();
+		dealAHand();
+		waitForPlay();
+		checkResults();
+	}
+
+	private void checkResults() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	private void dealAHand() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void waitForPlay() {
+		playerView.enableButton(Play.DEAL);
+		
+	}
+
+	private void setupPanelForNewGame() {
+//		playerView.disableAllButtons();
+	}
+
+	public void setPlayerView(PlayerView playerView) {
+		this.playerView = playerView;
 	}
 }

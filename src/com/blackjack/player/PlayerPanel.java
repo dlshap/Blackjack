@@ -47,9 +47,26 @@ public class PlayerPanel extends JFrame implements ActionListener {
 	public void enableButton(Play enableAction) {
 		buttons[enableAction.index()].setEnabled(true);
 	}
+	
+	public void disableAllButtons() {
+		for (JButton b:buttons) {
+			b.setEnabled(false);
+		}
+	}
+	
+	public void enableAllButtons() {
+		for (JButton b:buttons) {
+			b.setEnabled(true);
+		}
+		
+	}
 
 	private void setPlayerView(PlayerView playerView) {
 		this.playerView = playerView;
+	}
+	
+	public PlayerView getPlayerView() {
+		return playerView;
 	}
 
 	@Override
@@ -181,6 +198,21 @@ public class PlayerPanel extends JFrame implements ActionListener {
 				playerPanel.setVisible(true);
 			}
 		});
+	}
+	
+	public static PlayerPanel testCreatePlayerPanel() {
+		// TODO Auto-generated method stub
+
+		final PlayerPanel playerPanel = new PlayerPanel();
+
+		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+//				PlayerPanel playerPanel = new PlayerPanel();
+				playerPanel.setVisible(true);
+			}
+		});
+		
+		return playerPanel;
 	}
 
 }
