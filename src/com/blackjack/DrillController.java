@@ -35,6 +35,11 @@ public class DrillController {
 			// for now this is only other option...later we'll have more stackers
 			shoe.setDeckStacker(DeckStackerFactory.getFairDeckStacker());
 	}
+	
+	public void startPlay() {
+		setupPanelForNewGame();		// disable buttons until ready to play
+		waitForPlay();				// enable "Deal" button and wait for user
+	}
 
 	private void createShoe() {
 		shoe = new Shoe(playConfig.getDeckCount());
@@ -65,14 +70,6 @@ public class DrillController {
 	public void setShoe(Shoe shoe) {
 		this.shoe = shoe;
 
-	}
-
-	public void startPlay() {
-		setupPanelForNewGame();
-		waitForPlay();
-		dealAHand();
-		waitForPlay();
-		checkResults();
 	}
 
 	private void checkResults() {
