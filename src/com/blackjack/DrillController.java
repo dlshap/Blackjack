@@ -1,28 +1,29 @@
-package com.blackjack.player;
+package com.blackjack;
 
-import com.blackjack.GameConfig;
 import com.blackjack.cards.Card;
 import com.blackjack.cards.EmptyShoeException;
 import com.blackjack.cards.Shoe;
 import com.blackjack.deckstackers.DeckStackerFactory;
+import com.blackjack.player.Play;
+import com.blackjack.player.PlayerView;
 import com.blackjack.strategy.Strategy;
 import com.blackjack.table.Hand;
 
-public class PlayController {
+public class DrillController {
 
 	private GameConfig playConfig = new GameConfig();
 	private Strategy strategy;
 	private Shoe shoe;
 	private PlayerView playerView;
 
-	private PlayController() {
+	private DrillController() {
 		super();
 		createShoe();
 		pickDeckStacker();
 }
 
-	public static PlayController createPlayController() {
-		return new PlayController();
+	public static DrillController createPlayController() {
+		return new DrillController();
 	}
 
 	private void pickDeckStacker() {

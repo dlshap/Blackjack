@@ -1,6 +1,5 @@
 package com.blackjack;
 
-import com.blackjack.player.PlayController;
 import com.blackjack.player.PlayerPanel;
 import com.blackjack.player.PlayerView;
 

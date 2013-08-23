@@ -1,20 +1,21 @@
 package com.blackjack.player;
 
+import com.blackjack.DrillController;
 import com.blackjack.cards.Card;
 import com.blackjack.table.Hand;
 
 public class PlayerView {
 
 	private PlayerPanel playerPanel;
-	private PlayController playCtr;
+	private DrillController drillCtr;
 	private Hand dealerHand = new Hand();
 	private Hand playerHand = new Hand();
 	private Card dealerShowCard;
 
 	private PlayerView() {
 		super();
-		playCtr = PlayController.createPlayController();
-		playCtr.setPlayerView(this);
+		drillCtr = DrillController.createPlayController();
+		drillCtr.setPlayerView(this);
 	}
 
 	private void setPlayerPanel(PlayerPanel playerPanel) {
@@ -28,20 +29,12 @@ public class PlayerView {
 	}
 
 	public void startPlay() {
-		playCtr.startPlay();
-	}
-
-	public void deal() {
-		playerHand.add(playCtr.deal());
-		dealerShowCard = playCtr.deal();
-		dealerHand.add(dealerShowCard);
-		playerHand.add(playCtr.deal());
-		showCards();
+		drillCtr.startPlay();
 	}
 
 	public void playerMove(Play play) {
 		// play the next move
-		boolean result = playCtr.checkPlay(play, dealerShowCard, playerHand);
+		boolean result = drillCtr.checkPlay(play, dealerShowCard, playerHand);
 		showResult(result);
 	}
 
@@ -54,23 +47,22 @@ public class PlayerView {
 		// System.out.println("Player:\n"+playerHand.toString()+"\n\nDealer: "+dealerCard.toString());
 	}
 
-	public void setPlayCtr(PlayController playCtr) {
-		this.playCtr = playCtr;
+	public void setdrillCtr(DrillController drillCtr) {
+		this.drillCtr = drillCtr;
 	}
-
-	// public void disableHit() {
-	// playerPanel.disableButton(Action.HIT);
-	// }
 
 	public void buttonPressed(Play buttonAction) {
 		switch (buttonAction) {
 		case DEAL:
-			System.out.println(playCtr.deal().toString());
+			System.out.println(drillCtr.deal().toString());
 			break;
+		case HIT:
+		case SPLIT:
+		case DOUBLE:
+		case STAND:
 		default:
 			System.out.println(buttonAction.toString());
 		}
-
 	}
 
 	public void disableButton(Play play) {
