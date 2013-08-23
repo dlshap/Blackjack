@@ -14,7 +14,7 @@ public class PlayerView {
 
 	private PlayerView() {
 		super();
-		drillCtr = DrillController.createPlayController();
+		drillCtr = DrillController.createDrillController();
 		drillCtr.setPlayerView(this);
 	}
 

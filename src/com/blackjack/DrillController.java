@@ -22,7 +22,7 @@ public class DrillController {
 		pickDeckStacker();
 }
 
-	public static DrillController createPlayController() {
+	public static DrillController createDrillController() {
 		return new DrillController();
 	}
 
