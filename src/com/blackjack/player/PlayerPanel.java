@@ -155,16 +155,28 @@ public class PlayerPanel extends JFrame implements ActionListener {
 		constraints.gridy = 2;
 		pane.add(playerCardText2, constraints);
 		
+		JPanel buttonPanel = new JPanel();
+		constraints = defaultConstraints();
+		constraints.gridy=3;
+		constraints.gridwidth=4;
+		pane.add(buttonPanel,constraints);
+		
 		button = new JButton(Play.DEAL.toString());
-		button.setPreferredSize(new Dimension(300,40));
+		button.setPreferredSize(new Dimension(200,30));
 		buttons[Play.DEAL.index()] = button;
 		button.addActionListener(this);
 		constraints.insets = new Insets(10, 0, 0, 0); // top padding
-//		constraints = defaultConstraints();
+		constraints = defaultConstraints();
 		constraints.gridx = 0; // aligned with button 2
-		constraints.gridwidth = 4; // 2 columns wide
-		constraints.gridy = 3; // third row
-		pane.add(button, constraints);
+//		constraints.gridwidth = 4; // 2 columns wide
+		constraints.gridy = 0; // third row
+		buttonPanel.add(button, constraints);
+		
+		JPanel buttonPanel2 = new JPanel();
+		constraints = defaultConstraints();
+		constraints.gridy=4;
+		constraints.gridwidth=4;
+		pane.add(buttonPanel2,constraints);
 
 		button = new JButton("Hit");
 		button = new JButton(Play.HIT.toString());
@@ -174,8 +186,8 @@ public class PlayerPanel extends JFrame implements ActionListener {
 //		constraints.insets = new Insets(60, 0, 0, 0); // top padding
 		button.setPreferredSize(null);
 		constraints.gridx = 0;
-		constraints.gridy = 4;
-		pane.add(button, constraints);
+		constraints.gridy = 1;
+		buttonPanel2.add(button, constraints);
 
 		button = new JButton("Stand");
 		button = new JButton(Play.STAND.toString());
@@ -184,8 +196,8 @@ public class PlayerPanel extends JFrame implements ActionListener {
 		constraints = defaultConstraints();
 //		constraints.insets = new Insets(60, 0, 0, 0); // top padding
 		constraints.gridx = 1;
-		constraints.gridy = 4;
-		pane.add(button, constraints);
+		constraints.gridy = 1;
+		buttonPanel2.add(button, constraints);
 
 		button = new JButton("Split");
 		button = new JButton(Play.SPLIT.toString());
@@ -195,7 +207,7 @@ public class PlayerPanel extends JFrame implements ActionListener {
 //		constraints.insets = new Insets(60, 0, 0, 0); // top padding
 		constraints.gridx = 2;
 		constraints.gridy = 4;
-		pane.add(button, constraints);
+		buttonPanel2.add(button, constraints);
 
 		button = new JButton("Double");
 		button = new JButton(Play.DOUBLE.toString());
@@ -205,7 +217,7 @@ public class PlayerPanel extends JFrame implements ActionListener {
 //		constraints.insets = new Insets(60, 0, 0, 0); // top padding
 		constraints.gridx = 3;
 		constraints.gridy = 4;
-		pane.add(button, constraints);
+		buttonPanel2.add(button, constraints);
 
 	}
 
