@@ -8,6 +8,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -128,12 +129,21 @@ public class PlayerPanel extends JFrame implements ActionListener {
 		constraints.gridy = 0;
 		pane.add(label, constraints);
 
-		dealerCardText = new JLabel();
+//		dealerCardText = new JLabel();
+//		constraints = defaultConstraints();
+//		constraints.insets = new Insets(10, 0, 0, 0); // top padding
+//		constraints.gridx = 1;
+//		constraints.gridy = 0;
+//		pane.add(dealerCardText, constraints);
+		
+		ImageIcon cardIcon = createImageIcon("resources/cardIcons/five_hearts.png",
+                "");
+		JButton cardButton = new JButton();
+		cardButton.setIcon(cardIcon);
 		constraints = defaultConstraints();
-		constraints.insets = new Insets(10, 0, 0, 0); // top padding
 		constraints.gridx = 1;
 		constraints.gridy = 0;
-		pane.add(dealerCardText, constraints);
+		pane.add(cardButton, constraints);
 
 		label = new JLabel("Player:");
 		constraints = defaultConstraints();
@@ -141,20 +151,39 @@ public class PlayerPanel extends JFrame implements ActionListener {
 		constraints.gridx = 0;
 		constraints.gridy = 1;
 		pane.add(label, constraints);
-
-		playerCardText1 = new JLabel(" ");
+		
+		cardIcon = createImageIcon("resources/cardIcons/ace_clubs.png",
+                "");
+		cardButton = new JButton();
+		cardButton.setIcon(cardIcon);
 		constraints = defaultConstraints();
-		constraints.insets = new Insets(10, 0, 0, 0); // top padding
 		constraints.gridx = 1;
 		constraints.gridy = 1;
-		pane.add(playerCardText1, constraints);
-
-		playerCardText2 = new JLabel(" ");
-		constraints = defaultConstraints();
-		constraints.gridx = 1;
-		constraints.gridy = 2;
-		pane.add(playerCardText2, constraints);
+		pane.add(cardButton, constraints);
 		
+		cardIcon = createImageIcon("resources/cardIcons/ace_diamonds.png",
+                "");
+		cardButton = new JButton();
+		cardButton.setIcon(cardIcon);
+		constraints = defaultConstraints();
+		constraints.gridx = 2;
+		constraints.gridy = 1;
+		pane.add(cardButton, constraints);
+
+
+//		playerCardText1 = new JLabel(" ");
+//		constraints = defaultConstraints();
+//		constraints.insets = new Insets(10, 0, 0, 0); // top padding
+//		constraints.gridx = 1;
+//		constraints.gridy = 1;
+//		pane.add(playerCardText1, constraints);
+//
+//		playerCardText2 = new JLabel(" ");
+//		constraints = defaultConstraints();
+//		constraints.gridx = 1;
+//		constraints.gridy = 2;
+//		pane.add(playerCardText2, constraints);
+//		
 		JPanel buttonPanel = new JPanel();
 		constraints = defaultConstraints();
 		constraints.gridy=3;
@@ -218,8 +247,19 @@ public class PlayerPanel extends JFrame implements ActionListener {
 		constraints.gridx = 3;
 		constraints.gridy = 4;
 		buttonPanel2.add(button, constraints);
-
 	}
+	
+	 /** Returns an ImageIcon, or null if the path was invalid. */
+    protected static ImageIcon createImageIcon(String path,
+                                               String description) {
+        java.net.URL imgURL = PlayerPanel.class.getResource(path);
+        if (imgURL != null) {
+            return new ImageIcon(imgURL, description);
+        } else {
+            System.err.println("Couldn't find file: " + path);
+            return null;
+        }
+    }
 
 	/**
 	 * Create the GUI and show it. For thread safety, this method should be
