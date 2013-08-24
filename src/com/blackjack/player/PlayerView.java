@@ -14,8 +14,7 @@ public class PlayerView {
 
 	private PlayerView() {
 		super();
-		drillCtr = DrillController.createDrillController();
-		drillCtr.setPlayerView(this);
+		drillCtr = DrillController.createDrillController(this);
 	}
 
 	private void setPlayerPanel(PlayerPanel playerPanel) {
@@ -38,13 +37,12 @@ public class PlayerView {
 		showResult(result);
 	}
 
-	private void showResult(boolean result) {
-		// System.out.println(result);
+	public void showResult(boolean result) {
+		 System.out.println(result);
 	}
 
-	private void showCards() {
-		// TODO Auto-generated method stub
-		// System.out.println("Player:\n"+playerHand.toString()+"\n\nDealer: "+dealerCard.toString());
+	public void showCards() {
+		playerPanel.showCards(playerHand, dealerHand);
 	}
 
 	public void setdrillCtr(DrillController drillCtr) {
@@ -52,17 +50,7 @@ public class PlayerView {
 	}
 
 	public void buttonPressed(Play buttonAction) {
-		switch (buttonAction) {
-		case DEAL:
-			System.out.println(drillCtr.deal().toString());
-			break;
-		case HIT:
-		case SPLIT:
-		case DOUBLE:
-		case STAND:
-		default:
-			System.out.println(buttonAction.toString());
-		}
+		drillCtr.doAction(buttonAction);
 	}
 
 	public void disableButton(Play play) {
@@ -83,5 +71,33 @@ public class PlayerView {
 	public void enableAllButtons() {
 		playerPanel.enableAllButtons();
 
+	}
+
+	public void givePlayerACard(Card playerCard) {
+		playerHand.add(playerCard);
+		
+	}
+
+	public void giveDealerACard(Card dealerCard) {
+		dealerHand.add(dealerCard);
+		
+	}
+
+	public Card getDealerCard() {
+		return dealerHand.getHand().get(0);
+	}
+	
+	public Hand getPlayerHand() {
+		return playerHand;
+	}
+
+	public void emptyHands() {
+		dealerHand = new Hand();
+		playerHand = new Hand();
+	}
+
+	public void clearCards() {
+		// TODO Auto-generated method stub
+		
 	}
 }

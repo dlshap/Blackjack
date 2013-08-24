@@ -6,13 +6,14 @@ import com.blackjack.cards.Shoe;
 import com.blackjack.deckstackers.DeckStackerFactory;
 import com.blackjack.player.Play;
 import com.blackjack.player.PlayerView;
+import com.blackjack.strategy.BasicStrategy;
 import com.blackjack.strategy.Strategy;
 import com.blackjack.table.Hand;
 
 public class DrillController {
 
 	private GameConfig playConfig = new GameConfig();
-	private Strategy strategy;
+	private Strategy strategy = BasicStrategy.createBasicStrategy();
 	private Shoe shoe;
 	private PlayerView playerView;
 
@@ -20,10 +21,13 @@ public class DrillController {
 		super();
 		createShoe();
 		pickDeckStacker();
-}
+		
+	}
 
-	public static DrillController createDrillController() {
-		return new DrillController();
+	public static DrillController createDrillController(PlayerView playerView) {
+		DrillController drillController = new DrillController();
+		drillController.setPlayerView(playerView);
+		return drillController;
 	}
 
 	private void pickDeckStacker() {
@@ -32,20 +36,21 @@ public class DrillController {
 				&& (!playConfig.isDrillOnSoftHands()))
 			shoe.setDeckStacker(DeckStackerFactory.getPairsOnlyDeckStacker());
 		else
-			// for now this is only other option...later we'll have more stackers
+			// for now this is only other option...later we'll have more
+			// stackers
 			shoe.setDeckStacker(DeckStackerFactory.getFairDeckStacker());
 	}
-	
+
 	public void startPlay() {
-		setupPanelForNewGame();		// disable buttons until ready to play
-		waitForPlay();				// enable "Deal" button and wait for user
+		setupPanelForNewGame(); // disable buttons until ready to play
+		waitForDeal(); // enable "Deal" button and wait for user
 	}
 
 	private void createShoe() {
 		shoe = new Shoe(playConfig.getDeckCount());
 	}
 
-	public Card deal() {
+	private Card deal() {
 		Card nextCard;
 		try {
 			nextCard = shoe.nextCard();
@@ -61,7 +66,8 @@ public class DrillController {
 	}
 
 	public boolean checkPlay(Play play, Card dealerCard, Hand playerHand) {
-		if (play.equals(strategy.getPlay(dealerCard, playerHand)))
+		Play correctPlay = strategy.getPlay(dealerCard, playerHand);
+		if (play == correctPlay)
 			return true;
 		else
 			return false;
@@ -72,26 +78,51 @@ public class DrillController {
 
 	}
 
-	private void checkResults() {
-		// TODO Auto-generated method stub
-		
+	private void dealAHand() {
+		playerView.emptyHands();
+		playerView.givePlayerACard(deal());
+		playerView.giveDealerACard(deal());
+		playerView.givePlayerACard(deal());
+		playerView.showCards();
 	}
 
-	private void dealAHand() {
-		// TODO Auto-generated method stub
-		
+	private void waitForDeal() {
+		playerView.enableButton(Play.DEAL);
+
 	}
 
 	private void waitForPlay() {
-		playerView.enableButton(Play.DEAL);
-		
+		playerView.enableAllButtons();
+		playerView.disableButton(Play.DEAL);
 	}
 
 	private void setupPanelForNewGame() {
-//		playerView.disableAllButtons();
+		playerView.clearCards();
+		playerView.disableAllButtons();
 	}
 
 	public void setPlayerView(PlayerView playerView) {
 		this.playerView = playerView;
 	}
+
+	public void doAction(Play buttonAction) {
+		switch (buttonAction) {
+		case DEAL:
+			dealAHand();
+			waitForPlay();
+			break;
+		case HIT:
+		case SPLIT:
+		case STAND:
+		case DOUBLE:
+			Card dealerCard = playerView.getDealerCard();
+			Hand playerHand = playerView.getPlayerHand();
+			boolean result = checkPlay(buttonAction, dealerCard, playerHand);
+			System.out.print(buttonAction.toString()+": ");
+			if (result) playerView.enableButton(Play.DEAL);
+			playerView.showResult(result);
+		}
+
+	}
+
 }

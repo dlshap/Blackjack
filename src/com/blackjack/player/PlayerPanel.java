@@ -1,6 +1,7 @@
 package com.blackjack.player;
 
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -12,17 +13,31 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.blackjack.table.Hand;
+
 public class PlayerPanel extends JFrame implements ActionListener {
-	final static boolean shouldFill = true;
-	final static boolean shouldWeightX = true;
 	PlayerView playerView;
 	JPanel panel = new JPanel();
+	JLabel dealerCardText, playerCardText1, playerCardText2;
 
 	private JButton[] buttons = new JButton[5];
+	
+	public void showCards(Hand playerHand, Hand dealerHand) {
+		dealerCardText.setText(dealerHand.getHand().get(0).toString());
+		playerCardText1.setText(playerHand.getHand().get(0).toString());
+		playerCardText2.setText(playerHand.getHand().get(1).toString());
+	}
+	
+	
 
 	private PlayerPanel() {
+		// show the panel
 		initPlayerPanel();
+		
+		// attach a view to the panel
 		setPlayerView(PlayerView.createPlayerView(this));
+		
+		// start the drill
 		playerView.startPlay();
 	}
 
@@ -34,6 +49,9 @@ public class PlayerPanel extends JFrame implements ActionListener {
 		// Set up the content pane.
 		getContentPane().add(panel);
 		addComponentsToPane(panel);
+
+		// don't let them do anything yet
+		disableAllButtons();
 
 		pack();
 		panel.setVisible(true);
@@ -47,24 +65,24 @@ public class PlayerPanel extends JFrame implements ActionListener {
 	public void enableButton(Play enableAction) {
 		buttons[enableAction.index()].setEnabled(true);
 	}
-	
+
 	public void disableAllButtons() {
-		for (JButton b:buttons) {
+		for (JButton b : buttons) {
 			b.setEnabled(false);
 		}
 	}
-	
+
 	public void enableAllButtons() {
-		for (JButton b:buttons) {
+		for (JButton b : buttons) {
 			b.setEnabled(true);
 		}
-		
+
 	}
 
 	private void setPlayerView(PlayerView playerView) {
 		this.playerView = playerView;
 	}
-	
+
 	public PlayerView getPlayerView() {
 		return playerView;
 	}
@@ -82,6 +100,9 @@ public class PlayerPanel extends JFrame implements ActionListener {
 	}
 
 	private static GridBagConstraints defaultConstraints() {
+		final boolean shouldFill = true;
+		final boolean shouldWeightX = true;
+
 		GridBagConstraints constraints = new GridBagConstraints();
 		if (shouldFill) {
 			// natural height, maximum width
@@ -100,55 +121,58 @@ public class PlayerPanel extends JFrame implements ActionListener {
 
 		pane.setLayout(new GridBagLayout());
 
-		button = new JButton(Play.DEAL.toString());
-		buttons[Play.DEAL.index()] = button;
-		button.addActionListener(this);
-		constraints = defaultConstraints();
-		constraints.gridx = 0; // aligned with button 2
-		constraints.gridwidth = 2; // 2 columns wide
-		constraints.gridy = 0; // third row
-		pane.add(button, constraints);
-
 		label = new JLabel("Dealer:");
 		constraints = defaultConstraints();
-		constraints.insets = new Insets(40, 0, 0, 0); // top padding
+		constraints.insets = new Insets(10, 0, 0, 0); // top padding
 		constraints.gridx = 0;
-		constraints.gridy = 1;
+		constraints.gridy = 0;
 		pane.add(label, constraints);
 
-		label = new JLabel("KING OF HEARTS");
+		dealerCardText = new JLabel();
 		constraints = defaultConstraints();
-		constraints.insets = new Insets(40, 0, 0, 0); // top padding
+		constraints.insets = new Insets(10, 0, 0, 0); // top padding
 		constraints.gridx = 1;
-		constraints.gridy = 1;
-		pane.add(label, constraints);
+		constraints.gridy = 0;
+		pane.add(dealerCardText, constraints);
 
 		label = new JLabel("Player:");
 		constraints = defaultConstraints();
-		constraints.insets = new Insets(20, 0, 0, 0); // top padding
+		constraints.insets = new Insets(10, 0, 0, 0); // top padding
 		constraints.gridx = 0;
-		constraints.gridy = 2;
+		constraints.gridy = 1;
 		pane.add(label, constraints);
 
-		label = new JLabel("ACE OF SPADES");
+		playerCardText1 = new JLabel(" ");
 		constraints = defaultConstraints();
-		constraints.insets = new Insets(20, 0, 0, 0); // top padding
+		constraints.insets = new Insets(10, 0, 0, 0); // top padding
+		constraints.gridx = 1;
+		constraints.gridy = 1;
+		pane.add(playerCardText1, constraints);
+
+		playerCardText2 = new JLabel(" ");
+		constraints = defaultConstraints();
 		constraints.gridx = 1;
 		constraints.gridy = 2;
-		pane.add(label, constraints);
-
-		label = new JLabel("ACE OF HEARTS");
-		constraints = defaultConstraints();
-		constraints.gridx = 1;
-		constraints.gridy = 3;
-		pane.add(label, constraints);
+		pane.add(playerCardText2, constraints);
+		
+		button = new JButton(Play.DEAL.toString());
+		button.setPreferredSize(new Dimension(300,40));
+		buttons[Play.DEAL.index()] = button;
+		button.addActionListener(this);
+		constraints.insets = new Insets(10, 0, 0, 0); // top padding
+//		constraints = defaultConstraints();
+		constraints.gridx = 0; // aligned with button 2
+		constraints.gridwidth = 4; // 2 columns wide
+		constraints.gridy = 3; // third row
+		pane.add(button, constraints);
 
 		button = new JButton("Hit");
 		button = new JButton(Play.HIT.toString());
 		buttons[Play.HIT.index()] = button;
 		button.addActionListener(this);
 		constraints = defaultConstraints();
-		constraints.insets = new Insets(60, 0, 0, 0); // top padding
+//		constraints.insets = new Insets(60, 0, 0, 0); // top padding
+		button.setPreferredSize(null);
 		constraints.gridx = 0;
 		constraints.gridy = 4;
 		pane.add(button, constraints);
@@ -158,7 +182,7 @@ public class PlayerPanel extends JFrame implements ActionListener {
 		buttons[Play.STAND.index()] = button;
 		button.addActionListener(this);
 		constraints = defaultConstraints();
-		constraints.insets = new Insets(60, 0, 0, 0); // top padding
+//		constraints.insets = new Insets(60, 0, 0, 0); // top padding
 		constraints.gridx = 1;
 		constraints.gridy = 4;
 		pane.add(button, constraints);
@@ -168,7 +192,7 @@ public class PlayerPanel extends JFrame implements ActionListener {
 		buttons[Play.SPLIT.index()] = button;
 		button.addActionListener(this);
 		constraints = defaultConstraints();
-		constraints.insets = new Insets(60, 0, 0, 0); // top padding
+//		constraints.insets = new Insets(60, 0, 0, 0); // top padding
 		constraints.gridx = 2;
 		constraints.gridy = 4;
 		pane.add(button, constraints);
@@ -178,7 +202,7 @@ public class PlayerPanel extends JFrame implements ActionListener {
 		buttons[Play.DOUBLE.index()] = button;
 		button.addActionListener(this);
 		constraints = defaultConstraints();
-		constraints.insets = new Insets(60, 0, 0, 0); // top padding
+//		constraints.insets = new Insets(60, 0, 0, 0); // top padding
 		constraints.gridx = 3;
 		constraints.gridy = 4;
 		pane.add(button, constraints);
@@ -199,7 +223,7 @@ public class PlayerPanel extends JFrame implements ActionListener {
 			}
 		});
 	}
-	
+
 	public static PlayerPanel testCreatePlayerPanel() {
 		// TODO Auto-generated method stub
 
@@ -207,12 +231,11 @@ public class PlayerPanel extends JFrame implements ActionListener {
 
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-//				PlayerPanel playerPanel = new PlayerPanel();
+				// PlayerPanel playerPanel = new PlayerPanel();
 				playerPanel.setVisible(true);
 			}
 		});
-		
+
 		return playerPanel;
 	}
-
 }
