@@ -3,11 +3,13 @@ package com.blackjack.cards;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.ImageIcon;
-
-import com.blackjack.player.PlayerPanel;
+import com.blackjack.playerui.CardImage;
 
 public class Card implements Comparable<Card> {
+	
+	Rank rank;
+	Suit suit;
+	int faceValue;
 
 	public enum Suit {
 		SPADES, HEARTS, DIAMONDS, CLUBS
@@ -26,10 +28,6 @@ public class Card implements Comparable<Card> {
 			return this.faceValue;
 		}
 	}
-
-	private final Rank rank;
-	private final Suit suit;
-	private final int faceValue;
 
 	private Card(Rank rank, Suit suit) {
 		this.rank = rank;
@@ -77,20 +75,7 @@ public class Card implements Comparable<Card> {
 		return (this.faceValue() == card.faceValue());
 	}
 
-	public ImageIcon getCardIcon() {
-		String imageName = this.rank.toString().toLowerCase() + "_" + this.suit.toString().toLowerCase();
-		return createImageIcon("resources/cardIcons/" + imageName + ".png", "");
-	}
-
-	protected static ImageIcon createImageIcon(String path, String description) {
-		java.net.URL imgURL = Card.class.getResource(path);
-		if (imgURL != null) {
-			return new ImageIcon(imgURL, description);
-		} else {
-			System.err.println("Couldn't find file: " + path);
-			return null;
-		}
-	}
+	
 	
 	public static Card makeCard(Rank rank, Suit suit) {
 		return new Card(rank, suit);
@@ -101,9 +86,5 @@ public class Card implements Comparable<Card> {
 			return this.rank().compareTo(c.rank());
 		else
 			return this.suit().compareTo(c.suit());
-	}
-	
-	public static ImageIcon getJokerImage() {
-		return createImageIcon("resources/cardIcons/joker.png","Joker");
-	}
+	}	
 }

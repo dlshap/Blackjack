@@ -2,6 +2,7 @@ package com.blackjack.player;
 
 import com.blackjack.DrillController;
 import com.blackjack.cards.Card;
+import com.blackjack.playerui.PlayerPanel;
 import com.blackjack.table.Hand;
 
 public class PlayerView {

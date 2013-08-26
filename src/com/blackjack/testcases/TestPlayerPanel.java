@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.blackjack.RunDrill;
-import com.blackjack.player.PlayerPanel;
+import com.blackjack.playerui.PlayerPanel;
 
 public class TestPlayerPanel {
 	

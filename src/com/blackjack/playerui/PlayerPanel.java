@@ -1,4 +1,4 @@
-package com.blackjack.player;
+package com.blackjack.playerui;
 
 import java.awt.Container;
 import java.awt.Dimension;
@@ -15,8 +15,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.blackjack.cards.Card;
-import com.blackjack.cards.Card.Rank;
-import com.blackjack.cards.Card.Suit;
+import com.blackjack.player.Play;
+import com.blackjack.player.PlayerView;
 import com.blackjack.table.Hand;
 
 public class PlayerPanel extends JFrame implements ActionListener {
@@ -33,13 +33,13 @@ public class PlayerPanel extends JFrame implements ActionListener {
 		// System.out.println(playerHand.getHand().get(0).toString());
 		// System.out.println(playerHand.getHand().get(1).toString());
 
-		cardImage = dealerHand.getHand().get(0).getCardIcon();
+		cardImage = CardImage.getCardIcon(dealerHand.getHand().get(0));
 		dealerCardImage.setIcon(cardImage);
 
-		cardImage = playerHand.getHand().get(0).getCardIcon();
+		cardImage = CardImage.getCardIcon(playerHand.getHand().get(0));
 		playerCard1Image.setIcon(cardImage);
 
-		cardImage = playerHand.getHand().get(1).getCardIcon();
+		cardImage = CardImage.getCardIcon(playerHand.getHand().get(1));
 		playerCard2Image.setIcon(cardImage);
 	}
 
@@ -141,7 +141,7 @@ public class PlayerPanel extends JFrame implements ActionListener {
 		pane.add(label, constraints);
 
 		dealerCardImage = new JLabel();
-		dealerCardImage.setIcon(Card.getJokerImage());
+		dealerCardImage.setIcon(CardImage.getJokerIcon());
 		constraints = defaultConstraints();
 		constraints.insets = new Insets(10, 0, 0, 0); // top padding
 		constraints.gridx = 1;
@@ -156,7 +156,7 @@ public class PlayerPanel extends JFrame implements ActionListener {
 		pane.add(label, constraints);
 
 		playerCard1Image = new JLabel();
-		playerCard1Image.setIcon(Card.getJokerImage());
+		playerCard1Image.setIcon(CardImage.getJokerIcon());
 		constraints = defaultConstraints();
 		constraints.insets = new Insets(10, 0, 0, 0); // top padding
 		constraints.gridx = 1;
@@ -164,7 +164,7 @@ public class PlayerPanel extends JFrame implements ActionListener {
 		pane.add(playerCard1Image, constraints);
 
 		playerCard2Image = new JLabel();
-		playerCard2Image.setIcon(Card.getJokerImage());
+		playerCard2Image.setIcon(CardImage.getJokerIcon());
 		constraints = defaultConstraints();
 		constraints.insets = new Insets(10, 0, 0, 0); // top padding
 		constraints.gridx = 2;

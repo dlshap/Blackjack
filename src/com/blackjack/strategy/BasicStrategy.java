@@ -54,7 +54,7 @@ public class BasicStrategy implements Strategy {
 			playForPairs[2][i] = Play.SPLIT;
 		}
 		// 5's: Double 2-9; hit 10 & Ace
-		for (int i = 1; i < 8; i++)
+		for (int i = 1; i < 9; i++)
 			playForPairs[4][i] = Play.DOUBLE;
 		playForPairs[4][0] = Play.HIT;
 		playForPairs[4][9] = Play.HIT;

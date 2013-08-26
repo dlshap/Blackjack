@@ -28,8 +28,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="4" language="java" name="com.blackjack.player.PlayerPanel" project="Blackjack" 
-    file="/Blackjack/src/com/blackjack/player/PlayerPanel.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="4" language="java" name="com.blackjack.playerui.PlayerPanel" project="Blackjack" 
+    file="/Blackjack/src/com/blackjack/playerui/PlayerPanel.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="189" width="216" x="610" y="85"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      

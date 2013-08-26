@@ -1,7 +1,7 @@
 package com.blackjack;
 
-import com.blackjack.player.PlayerPanel;
 import com.blackjack.player.PlayerView;
+import com.blackjack.playerui.PlayerPanel;
 
 public class RunDrill {
 	
