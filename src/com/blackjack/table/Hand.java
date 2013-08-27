@@ -44,4 +44,8 @@ public class Hand {
 	public int size() {
 		return hand.size();
 	}
+
+	public void clear() {
+		hand.clear();
+	}
 }
