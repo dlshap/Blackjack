@@ -28,12 +28,83 @@ public class BasicStrategy implements Strategy {
 				&& (hand.get(0).rank().equals(hand.get(1).rank())))
 			// faceValue maps to array elements by subtracting one (Ace = 0,
 			// Deuce = 1, etc.)
-			play = playForPairs[playerHand.getHand().get(0).faceValue() - 1][dealerCard
-					.faceValue() - 1];
+			play = playForPairs[playerHand.getHand().get(0).faceValue() - 2][dealerCard
+					.faceValue() - 2];
 		return play;
 	}
 
 	private static void buildPlayForPairs() {
+		// playForPairs array index is facevalue - 2
+		// Example: Ace = (11-2) = 9
+		// Ten, Jack, Queen, King = (10-2) = 8
+		// Deuce = (2-2) = 0
+		// p[] = {2,3,4,5,6,7,8,9,10,A}
+
+		{// Aces [9]
+			Play p[] = { Play.SPLIT, Play.SPLIT, Play.SPLIT, Play.SPLIT,
+					Play.SPLIT, Play.SPLIT, Play.SPLIT, Play.SPLIT, Play.SPLIT,
+					Play.SPLIT };
+			playForPairs[9] = p;
+		}
+		{// Tens [8]
+			Play p[] = { Play.STAND, Play.STAND, Play.STAND, Play.STAND,
+					Play.STAND, Play.STAND, Play.STAND, Play.STAND, Play.STAND,
+					Play.STAND };
+			playForPairs[8] = p;
+		}
+		{// Nines [7]
+			Play p[] = { Play.SPLIT, Play.SPLIT, Play.SPLIT, Play.SPLIT,
+					Play.SPLIT, Play.STAND, Play.SPLIT, Play.SPLIT, Play.SPLIT,
+					Play.SPLIT };
+			playForPairs[7] = p;
+		}
+		{// Eights [6]
+			Play p[] = { Play.SPLIT, Play.SPLIT, Play.SPLIT, Play.SPLIT,
+					Play.SPLIT, Play.SPLIT, Play.SPLIT, Play.SPLIT, Play.SPLIT,
+					Play.SPLIT };
+			playForPairs[6] = p;
+		}
+		{// Sevens [5]
+			Play p[] = { Play.SPLIT, Play.SPLIT, Play.SPLIT, Play.SPLIT,
+					Play.SPLIT, Play.SPLIT, Play.HIT, Play.HIT, Play.HIT,
+					Play.HIT };
+			playForPairs[5] = p;
+		}
+		{// Sixes [4]
+			Play p[] = { Play.HIT, Play.SPLIT, Play.SPLIT, Play.SPLIT,
+					Play.SPLIT, Play.HIT, Play.HIT, Play.HIT, Play.HIT,
+					Play.HIT };
+			playForPairs[4] = p;
+		}
+		{// Fives [3]
+			Play p[] = { Play.DOUBLE, Play.DOUBLE, Play.DOUBLE, Play.DOUBLE,
+					Play.DOUBLE, Play.DOUBLE, Play.DOUBLE, Play.DOUBLE,
+					Play.HIT, Play.HIT };
+			playForPairs[3] = p;
+		}
+		{// Fours [2]
+			Play p[] = { Play.HIT, Play.HIT, Play.HIT, Play.HIT,
+					Play.HIT, Play.HIT, Play.HIT, Play.HIT, Play.HIT,
+					Play.HIT };
+			playForPairs[2] = p;
+		}
+		{// Threes [1]
+			Play p[] = { Play.HIT, Play.HIT, Play.SPLIT, Play.SPLIT,
+					Play.SPLIT, Play.SPLIT, Play.HIT, Play.HIT, Play.HIT,
+					Play.HIT };
+			playForPairs[1] = p;
+		}
+		{// Deuces [0]
+			Play p[] = { Play.HIT, Play.HIT, Play.SPLIT, Play.SPLIT,
+					Play.SPLIT, Play.SPLIT, Play.HIT, Play.HIT, Play.HIT,
+					Play.HIT };
+			playForPairs[0] = p;
+		}
+
+	}
+
+	private static void oldBuildPlayForPairs() {
+
 		for (int i = 0; i < 10; i++) {
 			// Always split aces
 			playForPairs[0][i] = Play.SPLIT;
@@ -44,7 +115,9 @@ public class BasicStrategy implements Strategy {
 			// Always hit 4's
 			playForPairs[3][i] = Play.HIT;
 		}
+
 		// 2's and 3's: Split 4-7; otherwise hit
+
 		for (int i = 0; i < 10; i++) {
 			playForPairs[1][i] = Play.HIT;
 			playForPairs[2][i] = Play.HIT;
@@ -53,6 +126,7 @@ public class BasicStrategy implements Strategy {
 			playForPairs[1][i] = Play.SPLIT;
 			playForPairs[2][i] = Play.SPLIT;
 		}
+
 		// 5's: Double 2-9; hit 10 & Ace
 		for (int i = 1; i < 9; i++)
 			playForPairs[4][i] = Play.DOUBLE;
@@ -69,8 +143,9 @@ public class BasicStrategy implements Strategy {
 		for (int i = 1; i < 7; i++)
 			playForPairs[6][i] = Play.SPLIT;
 		// 9's: Split 2-6 and 8-9; otherwise stand
-		for (int i = 1; i < 9; i++)
+		for (int i = 1; i < 9; i++) {
 			playForPairs[8][i] = Play.SPLIT;
+		}
 		playForPairs[8][0] = Play.STAND;
 		playForPairs[8][6] = Play.STAND;
 		playForPairs[8][9] = Play.STAND;
