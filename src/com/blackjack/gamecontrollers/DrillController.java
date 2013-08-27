@@ -1,5 +1,6 @@
-package com.blackjack;
+package com.blackjack.gamecontrollers;
 
+import com.blackjack.GameConfig;
 import com.blackjack.cards.Card;
 import com.blackjack.cards.EmptyShoeException;
 import com.blackjack.cards.Shoe;
