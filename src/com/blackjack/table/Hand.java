@@ -48,4 +48,22 @@ public class Hand {
 	public void clear() {
 		hand.clear();
 	}
+
+	public boolean isAPair() {
+		if ((hand.size() == 2)
+				&& (hand.get(0).rank().equals(hand.get(1).rank())))
+			return true;
+		else
+			return false;
+	}
+
+	public boolean isSoft() {
+		// doesn't have to be two cards...
+		if ((hand.size() == 2)
+				&& (hand.get(0).rank().equals(Card.Rank.ACE) || hand.get(1)
+						.rank().equals(Card.Rank.ACE)))
+			return true;
+		else
+			return false;
+	}
 }
