@@ -38,6 +38,21 @@ public class TestCard {
 		c2 = deck2.get(1);
 		assertFalse(c1.equals(c2));
 	}
+	
+	@Test
+	public void testIsRank() {
+		Card c = Card.makeCard(Rank.ACE, Suit.CLUBS);
+		assertTrue(c.isRank(Rank.ACE));
+		assertFalse(c.isRank(Rank.EIGHT));
+	}
+	
+	@Test
+	public void testIsNotRank() {
+		Card c = Card.makeCard(Rank.ACE, Suit.CLUBS);
+		assertTrue(c.isNotRank(Rank.TWO));
+		assertFalse(c.isNotRank(Rank.ACE));
+	}
+
 
 	@Test
 	public void testSuit() {
@@ -80,11 +95,11 @@ public class TestCard {
 	public void testCompareTo() {
 		makeDecks();
 		Iterator<Card> cardIter = deck1.iterator();
-//		System.out.println(deck1.toString());
+		System.out.println(deck1.toString());
 		Collections.shuffle(deck1);
-//		System.out.println(deck1.toString());
+		System.out.println(deck1.toString());
 		Collections.sort(deck1);
-//		System.out.println(deck1.toString());
+		System.out.println(deck1.toString());
 		for (Rank r: Card.Rank.values()) {
 			for (Suit s:Card.Suit.values()) {
 				Card c = cardIter.next();

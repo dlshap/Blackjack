@@ -8,12 +8,12 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.blackjack.cards.Card;
+import com.blackjack.cards.Hand;
 import com.blackjack.cards.Card.Rank;
 import com.blackjack.cards.Card.Suit;
 import com.blackjack.player.Play;
 import com.blackjack.strategy.BasicStrategy;
 import com.blackjack.strategy.Strategy;
-import com.blackjack.table.Hand;
 
 public class TestBasicStrategy {
 

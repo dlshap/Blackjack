@@ -3,13 +3,13 @@ package com.blackjack.gamecontrollers;
 import com.blackjack.GameConfig;
 import com.blackjack.cards.Card;
 import com.blackjack.cards.EmptyShoeException;
+import com.blackjack.cards.Hand;
 import com.blackjack.cards.Shoe;
 import com.blackjack.deckstackers.DeckStackerFactory;
 import com.blackjack.player.Play;
 import com.blackjack.player.PlayerView;
 import com.blackjack.strategy.BasicStrategy;
 import com.blackjack.strategy.Strategy;
-import com.blackjack.table.Hand;
 
 public class DrillController {
 
@@ -36,6 +36,9 @@ public class DrillController {
 		if (playConfig.isDrillOnPairs() && (!playConfig.isDrillOnHardHands())
 				&& (!playConfig.isDrillOnSoftHands()))
 			shoe.setDeckStacker(DeckStackerFactory.getPairsOnlyDeckStacker());
+		else if (!playConfig.isDrillOnPairs() && (!playConfig.isDrillOnHardHands())
+				&& (playConfig.isDrillOnSoftHands()))
+			shoe.setDeckStacker(DeckStackerFactory.getSoftDeckStacker());
 		else
 			// for now this is only other option...later we'll have more
 			// stackers
@@ -62,6 +65,7 @@ public class DrillController {
 	}
 
 	private Card reshuffleShoe() {
+		playerView.clearCards();
 		shoe.buildShoe();
 		return deal();
 	}
@@ -93,7 +97,6 @@ public class DrillController {
 	}
 
 	private void waitForPlay() {
-		playerView.enableAllButtons();
 		playerView.disableButton(Play.DEAL);
 	}
 
@@ -109,6 +112,7 @@ public class DrillController {
 	public void doAction(Play buttonAction) {
 		switch (buttonAction) {
 		case DEAL:
+			playerView.enableAllButtons();
 			dealAHand();
 			waitForPlay();
 			break;

@@ -10,4 +10,8 @@ public class DeckStackerFactory {
 		return new FairDeckStacker();
 	}
 	
+	public static DeckStacker getSoftDeckStacker() {
+		return new SoftDeckStacker();
+	}
+	
 }

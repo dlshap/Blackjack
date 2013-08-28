@@ -1,8 +1,6 @@
-package com.blackjack.table;
+package com.blackjack.cards;
 
 import java.util.ArrayList;
-
-import com.blackjack.cards.Card;
 
 public class Hand {
 
@@ -50,11 +48,14 @@ public class Hand {
 	}
 
 	public boolean isAPair() {
-		if ((hand.size() == 2)
-				&& (hand.get(0).rank().equals(hand.get(1).rank())))
-			return true;
-		else
-			return false;
+		if (hand.size() == 2) {
+			Card.Rank c1 = hand.get(0).rank();
+			Card.Rank c2 = hand.get(1).rank();
+			if (c1.equals(c2))
+				return true;
+		}
+
+		return false;
 	}
 
 	public boolean isSoft() {

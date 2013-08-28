@@ -15,9 +15,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.blackjack.cards.Card;
+import com.blackjack.cards.Hand;
 import com.blackjack.player.Play;
 import com.blackjack.player.PlayerView;
-import com.blackjack.table.Hand;
 
 public class PlayerPanel extends JFrame implements ActionListener {
 	PlayerView playerView;

@@ -3,8 +3,8 @@ package com.blackjack.strategy;
 import java.util.ArrayList;
 
 import com.blackjack.cards.Card;
+import com.blackjack.cards.Hand;
 import com.blackjack.player.Play;
-import com.blackjack.table.Hand;
 
 public class BasicStrategy implements Strategy {
 

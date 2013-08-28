@@ -1,9 +1,9 @@
 package com.blackjack.player;
 
 import com.blackjack.cards.Card;
+import com.blackjack.cards.Hand;
 import com.blackjack.gamecontrollers.DrillController;
 import com.blackjack.playerui.PlayerPanel;
-import com.blackjack.table.Hand;
 
 public class PlayerView {
 
@@ -43,6 +43,8 @@ public class PlayerView {
 	}
 
 	public void showCards() {
+		if (!playerHand.isAPair())
+			playerPanel.disableButton(Play.SPLIT);
 		playerPanel.showCards(playerHand, dealerHand);
 	}
 

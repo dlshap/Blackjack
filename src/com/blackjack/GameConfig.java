@@ -19,9 +19,9 @@ public class GameConfig {
 
 	private void getSettings() {
 		//temporarily (until loading from file):
-		deckCount = 4;
-		drillOnPairs = true;
-		drillOnSoftHands = false;
+		deckCount = 1;
+		drillOnPairs = false;
+		drillOnSoftHands = true;
 		drillOnHardHands = false;
 		strategy = "Basic";
 
