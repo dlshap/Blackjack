@@ -10,11 +10,13 @@ public class BasicStrategy implements Strategy {
 
 	private static Play[][] playForPairs = new Play[10][10];
 	private static Play[][] playForSoftHands = new Play[10][10];
+	private static Play[][] playForHardHands = new Play[19][10];
 
 	private BasicStrategy() {
 		super();
 		playForPairs = BuildPlayForPairs.build();
 		playForSoftHands = BuildPlayForSoftHands.build();
+		playForHardHands = BuildPlayForHardHands.build();
 	}
 
 	public static BasicStrategy createBasicStrategy() {
@@ -29,7 +31,17 @@ public class BasicStrategy implements Strategy {
 			play = getPlayForPairs(dealerCard, playerHand);
 		else if (playerHand.isSoft())
 			play = getPlayForSoft(dealerCard, playerHand);
+		else
+			play = getPlayForHard(dealerCard, playerHand);
 		return play;
+	}
+
+	private Play getPlayForHard(Card dealerCard, Hand playerHand) {
+		Card playerCard1, playerCard2;
+		playerCard1 = playerHand.getHand().get(0);
+		playerCard2 = playerHand.getHand().get(1);
+		int totalFaceValue = playerCard1.faceValue() + playerCard2.faceValue();
+		return playForHardHands[totalFaceValue-3][dealerCard.faceValue() - 2];
 	}
 
 	private Play getPlayForSoft(Card dealerCard, Hand playerHand) {

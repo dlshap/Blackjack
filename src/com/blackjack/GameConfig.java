@@ -6,10 +6,12 @@ public class GameConfig {
 	// Initially, hard-code values...add config file later
 	
 	private int deckCount;
-	private boolean drillOnPairs;
-	private boolean drillOnSoftHands;
-	private boolean drillOnHardHands;
+	private Drill drill;
 	private String strategy;
+	
+	public enum Drill {
+		PAIRS, SOFT, HARD, ALL;
+	}
 
 	public GameConfig() {
 		super();
@@ -20,9 +22,7 @@ public class GameConfig {
 	private void getSettings() {
 		//temporarily (until loading from file):
 		deckCount = 1;
-		drillOnPairs = false;
-		drillOnSoftHands = true;
-		drillOnHardHands = false;
+		drill = Drill.HARD;
 		strategy = "Basic";
 
 		
@@ -31,18 +31,11 @@ public class GameConfig {
 	public int getDeckCount() {
 		return deckCount;
 	}
-
-	public boolean isDrillOnPairs() {
-		return drillOnPairs;
+	
+	public Drill drill() {
+		return drill;
 	}
 
-	public boolean isDrillOnSoftHands() {
-		return drillOnSoftHands;
-	}
-
-	public boolean isDrillOnHardHands() {
-		return drillOnHardHands;
-	}
 	
 	public String getStrategy() {
 		return strategy;

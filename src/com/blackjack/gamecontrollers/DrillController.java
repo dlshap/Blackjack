@@ -22,7 +22,7 @@ public class DrillController {
 		super();
 		createShoe();
 		pickDeckStacker();
-		
+
 	}
 
 	public static DrillController createDrillController(PlayerView playerView) {
@@ -32,17 +32,8 @@ public class DrillController {
 	}
 
 	private void pickDeckStacker() {
-		// if only pairs, use that deck stacker; otherwise use fair deck stacker
-		if (playConfig.isDrillOnPairs() && (!playConfig.isDrillOnHardHands())
-				&& (!playConfig.isDrillOnSoftHands()))
-			shoe.setDeckStacker(DeckStackerFactory.getPairsOnlyDeckStacker());
-		else if (!playConfig.isDrillOnPairs() && (!playConfig.isDrillOnHardHands())
-				&& (playConfig.isDrillOnSoftHands()))
-			shoe.setDeckStacker(DeckStackerFactory.getSoftDeckStacker());
-		else
-			// for now this is only other option...later we'll have more
-			// stackers
-			shoe.setDeckStacker(DeckStackerFactory.getFairDeckStacker());
+		shoe.setDeckStacker(DeckStackerFactory.getDeckStacker(playConfig
+				.drill()));
 	}
 
 	public void startPlay() {
@@ -123,9 +114,12 @@ public class DrillController {
 			Card dealerCard = playerView.getDealerCard();
 			Hand playerHand = playerView.getPlayerHand();
 			boolean result = checkPlay(buttonAction, dealerCard, playerHand);
-			System.out.print(buttonAction.toString()+": ");
-			if (result) playerView.enableButton(Play.DEAL);
+			System.out.print(buttonAction.toString() + ": ");
+			if (result)
+				playerView.enableButton(Play.DEAL);
 			playerView.showResult(result);
+			break;
+		default:
 		}
 
 	}
