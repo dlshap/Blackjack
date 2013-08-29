@@ -11,12 +11,15 @@ import com.blackjack.cards.Card.Rank;
 public class HardDeckStacker extends DeckStacker {
 
 	// shoe is declared in SuperClass (DeckStacker)
-	private int numberOfDecks, numberOfPairs, cardsLeft;
+	private int numberOfDecks;
 	private ArrayList<Card> decks = new ArrayList<Card>();
 	// private ArrayList<Card> stackedDeck = new ArrayList<Card>();
 	private ArrayList<Card> aces = new ArrayList<Card>(); // take out the aces
-	private ArrayList<Card> playerCards = new ArrayList<Card>(); // dealer cards
-	private Card dealerCard;
+//	private ArrayList<Card> playerCards = new ArrayList<Card>(); // dealer cards
+	private ArrayList<Card> pairCards = new ArrayList<Card>(); // store the
+																// pairs
+	
+	private Card playerCard, dealerCard;
 
 	public HardDeckStacker() {
 		super(false); // never shuffle soft-deck
@@ -33,49 +36,74 @@ public class HardDeckStacker extends DeckStacker {
 		// strategy:
 		// 1) arrange decks in numerical sequence
 		// 2) pull out aces into aces array
-		// 3) deal 2 to player (no aces) and 1 to dealer (which might include
-		// aces)
+		// 3) deal player card (no aces) and dealer card (which might include
+		// ace)
+		// 4) pull all identical cards to player card and deal another player
+		// card
+		// 5) put back the identical cards
+		// 6) build the shoe
 
 		numberOfDecks = shoe.getNumberOfDecks();
 		decks.clear();
 		aces.clear();
-		playerCards.clear();
-
+		
 		buildDecks(numberOfDecks); // build original decks
-		pullOutAces(); // get the rest of the aces
+		pullOutAces(); // pull the aces
 		dealCards(); // no Blackjacks
-		buildTheShoe(); // put into shoe
+	}
+
+	private void dealCards() {
+		// allow for pair removal
+		while (decks.size() > 6) {
+			Collections.shuffle(decks);
+			getPlayerCard();
+			getDealerCard();
+			removePairs();
+			getPlayerCard();
+			putPairsBack();
+		}
+	}
+
+	private void putPairsBack() {
+		while (pairCards.size() > 0) {
+			decks.add(pairCards.remove(0));
+		}
+	}
+
+	private void removePairs() {
+		Collections.sort(decks);
+		for (int i = decks.size()-1; i >= 0; i--) {
+			if (decks.get(i).rank().equals(playerCard.rank())) {
+				pairCards.add(decks.remove(i));
+			}
+		}
+		System.out.println(playerCard.toString());
+		System.out.println(decks.toString());
 	}
 
 	private void getDealerCard() {
 		// Chance of an ace is # aces/# cards + # aces
-		int a = aces.size();
-		int d = decks.size();
-		double aceRatio = (double) aces.size()
-				/ (double) (aces.size() + decks.size());
-		int aceChance = (int) (aceRatio * 100.);
-		int acePick = (int) (Math.random() * 100);
-		if (acePick <= aceChance)
-			dealerCard = aces.remove(0);
+		int acesLeft = aces.size();
+		if (acesLeft == 0)
+			shoe.add(decks.remove(0));
+		else if (decks.size()==0)
+			shoe.add(aces.remove(0));
 		else
-			dealerCard = decks.remove(0);
-	}
-
-	private void dealCards() {
-		System.out.println(decks.toString());
-		Collections.shuffle(decks);
-		System.out.println(decks.toString());
-		while (decks.size() > 2) {
-			playerCards.add(decks.remove(0));
-			getDealerCard(); // get dealer card (might be ace)
-			playerCards.add(decks.remove(0));
+		{
+			double aceRatio = (double) aces.size()
+					/ (double) (aces.size() + decks.size());
+			int aceChance = (int) (aceRatio * 100.);
+			int acePick = (int) (Math.random() * 100);
+			if (acePick <= aceChance)
+				shoe.add(aces.remove(0));
+			else
+				shoe.add(decks.remove(0));
 		}
-
 	}
 
-	private void buildTheShoe() {
-		while (playerCards.size() > 0)
-			shoe.add(playerCards.remove(0));
+	private void getPlayerCard() {
+		playerCard = decks.remove(0);
+		shoe.add(playerCard);
 	}
 
 	private void pullOutAces() {
