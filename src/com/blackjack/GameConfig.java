@@ -5,9 +5,10 @@ public class GameConfig {
 	//
 	// Initially, hard-code values...add config file later
 	
-	private int deckCount;
-	private Drill drill;
-	private String strategy;
+	// defaults:	
+	private int deckCount = 1;
+	private Drill drill = Drill.SOFT;
+	private String strategy = "Basic";
 	
 	public enum Drill {
 		PAIRS, SOFT, HARD, ALL;
@@ -16,16 +17,12 @@ public class GameConfig {
 	public GameConfig() {
 		super();
 		
-		getSettings();
+		loadSettings();
 	}
 
-	private void getSettings() {
+	private void loadSettings() {
 		//temporarily (until loading from file):
 		deckCount = 1;
-		drill = Drill.HARD;
-		strategy = "Basic";
-
-		
 	}
 
 	public int getDeckCount() {
