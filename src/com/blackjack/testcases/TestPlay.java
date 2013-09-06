@@ -15,48 +15,16 @@ public class TestPlay {
 
 	
 	@Test
-	public void testCreateHit() {
-		fail("Not yet implemented");
+	public void testActionStrings() {
+		assertEquals(Play.HIT, Play.action("Hit"));
+		assertEquals(Play.STAND, Play.action("Stand"));
+		assertEquals(Play.DEAL, Play.action("Deal"));
+		assertEquals(Play.DOUBLE, Play.action("Double"));
+		assertEquals(Play.SPLIT, Play.action("Split"));
 	}
 
-	@Test
-	public void testCreateStand() {
-		fail("Not yet implemented");
-	}
+	
 
-	@Test
-	public void testCreateDouble() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testCreateSplit() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testCreateNoPlay() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetChoice() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetChoice() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testCreatePlay() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testEqualsPlay() {
-		fail("Not yet implemented");
-	}
+	
 
 }

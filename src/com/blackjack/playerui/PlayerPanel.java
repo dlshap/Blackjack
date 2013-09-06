@@ -7,31 +7,34 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 
-import com.blackjack.cards.Card;
+import com.blackjack.GameConfig;
+import com.blackjack.GameConfig.Drill;
 import com.blackjack.cards.Hand;
 import com.blackjack.player.Play;
 import com.blackjack.player.PlayerView;
 
-public class PlayerPanel extends JFrame implements ActionListener {
+public class PlayerPanel extends JPanel implements ActionListener {
+	// Todo:
+	// Set default drill type based on config
+
 	PlayerView playerView;
-	JPanel panel = new JPanel();
 	JLabel dealerCardImage, playerCard1Image, playerCard2Image;
 
 	private JButton[] buttons = new JButton[5];
 
 	public void showCards(Hand playerHand, Hand dealerHand) {
 		ImageIcon cardImage;
-
-		// System.out.println(dealerHand.getHand().get(0).toString());
-		// System.out.println(playerHand.getHand().get(0).toString());
-		// System.out.println(playerHand.getHand().get(1).toString());
 
 		cardImage = CardImage.getCardIcon(dealerHand.getHand().get(0));
 		dealerCardImage.setIcon(cardImage);
@@ -55,19 +58,12 @@ public class PlayerPanel extends JFrame implements ActionListener {
 	}
 
 	private void initPlayerPanel() {
-		setTitle("BlackJack Drill");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setLocation(200, 200);
 
 		// Set up the content pane.
-		getContentPane().add(panel);
-		addComponentsToPane(panel);
+		addComponentsToPane(this);
 
 		// don't let them do anything yet
 		disableAllButtons();
-
-		pack();
-		panel.setVisible(true);
 	}
 
 	public void disableButton(Play disableAction) {
@@ -102,13 +98,17 @@ public class PlayerPanel extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// Figure out the action from the button that got pressed
-		Play buttonAction = Play.NONE;
-		for (int i = 0; i < buttons.length; i++) {
-			if (e.getSource().equals(buttons[i])) {
-				buttonAction = Play.action(i);
-			}
+		String command = e.getActionCommand();
+
+		Play playCommand = Play.action(command);
+		Drill drillCommand = GameConfig.drill(command);
+
+		if (!playCommand.toString().toUpperCase().equals("NONE"))
+			playerView.buttonPressed(playCommand);
+		else {
+			if (!drillCommand.toString().toUpperCase().equals("NONE"))
+				System.out.println("drill type: " + drillCommand.toString());
 		}
-		playerView.buttonPressed(buttonAction);
 	}
 
 	private static GridBagConstraints defaultConstraints() {
@@ -171,26 +171,78 @@ public class PlayerPanel extends JFrame implements ActionListener {
 		constraints.gridy = 1;
 		pane.add(playerCard2Image, constraints);
 
+		// new panel for the radiobuttons
+		JPanel radioPanel = new JPanel();
+		radioPanel.setLayout(new GridBagLayout());
+		constraints = defaultConstraints();
+		constraints.gridx = 0;
+		constraints.gridy = 2;
+		constraints.gridwidth = 4;
+		constraints.insets = new Insets(40, 0, 0, 0); // top padding
+		pane.add(radioPanel, constraints);
+
+		// Create the radio buttons.
+		constraints = defaultConstraints();
+		constraints.gridx = 0;
+		constraints.gridy = 0;
+
+		JRadioButton radPairsOnly = new JRadioButton("Pairs Only");
+		radPairsOnly.setMnemonic(KeyEvent.VK_P);
+		radPairsOnly.setActionCommand(GameConfig.Drill.PAIRS.toString());
+		radPairsOnly.setSelected(true);
+		radioPanel.add(radPairsOnly, constraints);
+
+		JRadioButton radSoftOnly = new JRadioButton("Soft Hands Only (one Ace)");
+		radSoftOnly.setMnemonic(KeyEvent.VK_S);
+		radSoftOnly.setActionCommand(GameConfig.Drill.SOFT.toString());
+		constraints.gridy = 1;
+		radioPanel.add(radSoftOnly, constraints);
+
+		JRadioButton radHardOnly = new JRadioButton("Hard Hands Only (no Aces)");
+		radHardOnly.setMnemonic(KeyEvent.VK_H);
+		radHardOnly.setActionCommand(GameConfig.Drill.HARD.toString());
+		constraints.gridy = 2;
+		radioPanel.add(radHardOnly, constraints);
+
+		JRadioButton radAllTypes = new JRadioButton("All Hand Types");
+		radAllTypes.setMnemonic(KeyEvent.VK_A);
+		radAllTypes.setActionCommand(GameConfig.Drill.ALL.toString());
+		constraints.gridy = 3;
+		radioPanel.add(radAllTypes, constraints);
+
+		// Group the radio buttons.
+		ButtonGroup group = new ButtonGroup();
+		group.add(radPairsOnly);
+		group.add(radSoftOnly);
+		group.add(radHardOnly);
+		group.add(radAllTypes);
+
+		radPairsOnly.addActionListener(this);
+		radSoftOnly.addActionListener(this);
+		radHardOnly.addActionListener(this);
+		radAllTypes.addActionListener(this);
+
+		// Now the action buttons
 		JPanel buttonPanel = new JPanel();
 		constraints = defaultConstraints();
-		constraints.gridy = 3;
+		constraints.gridy = 6;
 		constraints.gridwidth = 4;
+		constraints.insets = new Insets(10, 0, 0, 0); // top padding
 		pane.add(buttonPanel, constraints);
 
 		button = new JButton(Play.DEAL.toString());
 		button.setPreferredSize(new Dimension(200, 30));
 		buttons[Play.DEAL.index()] = button;
 		button.addActionListener(this);
-		constraints.insets = new Insets(10, 0, 0, 0); // top padding
 		constraints = defaultConstraints();
 		constraints.gridx = 0; // aligned with button 2
-		// constraints.gridwidth = 4; // 2 columns wide
 		constraints.gridy = 0; // third row
 		buttonPanel.add(button, constraints);
 
 		JPanel buttonPanel2 = new JPanel();
 		constraints = defaultConstraints();
-		constraints.gridy = 4;
+		constraints.insets = new Insets(20, 0, 0, 0); // top padding
+		constraints.gridy = 5;
 		constraints.gridwidth = 4;
 		pane.add(buttonPanel2, constraints);
 
@@ -199,7 +251,6 @@ public class PlayerPanel extends JFrame implements ActionListener {
 		buttons[Play.HIT.index()] = button;
 		button.addActionListener(this);
 		constraints = defaultConstraints();
-		// constraints.insets = new Insets(60, 0, 0, 0); // top padding
 		button.setPreferredSize(null);
 		constraints.gridx = 0;
 		constraints.gridy = 1;
@@ -220,7 +271,7 @@ public class PlayerPanel extends JFrame implements ActionListener {
 		button.addActionListener(this);
 		constraints = defaultConstraints();
 		constraints.gridx = 2;
-		constraints.gridy = 4;
+		constraints.gridy = 5;
 		buttonPanel2.add(button, constraints);
 
 		button = new JButton("Double");
@@ -229,8 +280,24 @@ public class PlayerPanel extends JFrame implements ActionListener {
 		button.addActionListener(this);
 		constraints = defaultConstraints();
 		constraints.gridx = 3;
-		constraints.gridy = 4;
+		constraints.gridy = 5;
 		buttonPanel2.add(button, constraints);
+	}
+
+	private static void createAndShowGUI() {
+		// Create and set up the window.
+		JFrame frame = new JFrame("Tutor21");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setLocation(200, 200);
+
+		// Create and set up the content pane.
+		JComponent newContentPane = new PlayerPanel();
+		newContentPane.setOpaque(true); // content panes must be opaque
+		frame.setContentPane(newContentPane);
+
+		// Display the window.
+		frame.pack();
+		frame.setVisible(true);
 	}
 
 	/**
@@ -242,8 +309,9 @@ public class PlayerPanel extends JFrame implements ActionListener {
 
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				PlayerPanel playerPanel = new PlayerPanel();
-				playerPanel.setVisible(true);
+				// PlayerPanel playerPanel = new PlayerPanel();
+				// playerPanel.setVisible(true);
+				createAndShowGUI();
 			}
 		});
 	}

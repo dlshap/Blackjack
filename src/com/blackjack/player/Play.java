@@ -21,6 +21,14 @@ public enum Play {
 		return Play.NONE;
 	}
 
+	public static Play action(String playString) {
+		for (Play a : Play.values()) {
+			if (a.toString().toUpperCase().equals(playString.toUpperCase()))
+				return a;
+		}
+		return Play.NONE;
+	}
+
 	public String toString() {
 		String label = this.name().substring(0, 1)
 				+ this.name().substring(1).toLowerCase();
