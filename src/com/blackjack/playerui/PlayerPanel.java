@@ -135,7 +135,7 @@ public class PlayerPanel extends JPanel implements ActionListener {
 
 		label = new JLabel("Dealer:");
 		constraints = defaultConstraints();
-		constraints.insets = new Insets(10, 0, 0, 0); // top padding
+		constraints.insets = new Insets(10, 10, 0, 0); // top padding
 		constraints.gridx = 0;
 		constraints.gridy = 0;
 		pane.add(label, constraints);
@@ -150,7 +150,7 @@ public class PlayerPanel extends JPanel implements ActionListener {
 
 		label = new JLabel("Player:");
 		constraints = defaultConstraints();
-		constraints.insets = new Insets(10, 0, 0, 0); // top padding
+		constraints.insets = new Insets(10, 10, 0, 0); // top padding
 		constraints.gridx = 0;
 		constraints.gridy = 1;
 		pane.add(label, constraints);
@@ -178,7 +178,7 @@ public class PlayerPanel extends JPanel implements ActionListener {
 		constraints.gridx = 0;
 		constraints.gridy = 2;
 		constraints.gridwidth = 4;
-		constraints.insets = new Insets(40, 0, 0, 0); // top padding
+		constraints.insets = new Insets(40, 10, 0, 0); // top padding
 		pane.add(radioPanel, constraints);
 
 		// Create the radio buttons.
