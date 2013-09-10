@@ -1,6 +1,6 @@
 package com.blackjack.deckstackers;
 
-import com.blackjack.GameConfig;
+import com.blackjack.gamecontrollers.DrillController;
 
 public class DeckStackerFactory {
 
@@ -20,7 +20,7 @@ public class DeckStackerFactory {
 		return new HardDeckStacker();
 	}
 
-	public static DeckStacker getDeckStacker(GameConfig.Drill drill) {
+	public static DeckStacker getDeckStacker(DrillController.Drill drill) {
 		switch (drill) {
 		case PAIRS:
 			return new PairsOnlyDeckStacker();

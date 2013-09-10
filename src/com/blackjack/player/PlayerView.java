@@ -3,6 +3,7 @@ package com.blackjack.player;
 import com.blackjack.cards.Card;
 import com.blackjack.cards.Hand;
 import com.blackjack.gamecontrollers.DrillController;
+import com.blackjack.gamecontrollers.DrillController.Drill;
 import com.blackjack.playerui.PlayerPanel;
 
 public class PlayerView {
@@ -100,7 +101,13 @@ public class PlayerView {
 	}
 
 	public void clearCards() {
-		// TODO Auto-generated method stub
+		emptyHands();
+		playerPanel.clearCards();
+		
+	}
+
+	public void drillChange(Drill drillCommand) {
+		drillCtr.drillChange(drillCommand);
 		
 	}
 }

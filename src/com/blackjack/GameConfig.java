@@ -1,5 +1,9 @@
 package com.blackjack;
 
+import com.blackjack.gamecontrollers.DrillController;
+import com.blackjack.gamecontrollers.DrillController.Drill;
+
+
 public class GameConfig {
 	// Load the configuration file and apply to game
 	//
@@ -7,20 +11,10 @@ public class GameConfig {
 	
 	// defaults:	
 	private int deckCount = 1;
-	private Drill drill = Drill.SOFT;
 	private String strategy = "Basic";
+	private String drill = DrillController.Drill.ALL.toString();
 	
-	public enum Drill {
-		PAIRS, SOFT, HARD, ALL, NONE;
-	}
 	
-	public static Drill drill(String drillString) {
-		for (Drill d:Drill.values()){
-			if (drillString.toUpperCase().equals(d.toString().toUpperCase()))
-				return d;
-		}
-		return Drill.NONE;
-	}
 
 	public GameConfig() {
 		super();
@@ -37,19 +31,12 @@ public class GameConfig {
 		return deckCount;
 	}
 	
-	public Drill drill() {
-		return drill;
-	}
-
 	
 	public String getStrategy() {
 		return strategy;
 	}
-	
-	
-	
-	
-	
-	
 
+	public void drillChange(Drill drillCommand) {
+		drill = drillCommand.toString();
+	}
 }

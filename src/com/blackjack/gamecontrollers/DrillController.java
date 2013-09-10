@@ -13,16 +13,46 @@ import com.blackjack.strategy.Strategy;
 
 public class DrillController {
 
+	public enum Drill {
+		PAIRS, SOFT, HARD, ALL, NONE;
+	}
+
 	private GameConfig playConfig = new GameConfig();
 	private Strategy strategy = BasicStrategy.createBasicStrategy();
 	private Shoe shoe;
 	private PlayerView playerView;
+	private Drill drill = Drill.PAIRS;		//TO DO: go to panel to get default
 
 	private DrillController() {
 		super();
 		createShoe();
 		pickDeckStacker();
+	}
 
+	private void createShoe() {
+		shoe = new Shoe(playConfig.getDeckCount());
+	}
+
+	private void pickDeckStacker() {
+		shoe.setDeckStacker(DeckStackerFactory.getDeckStacker(drill()));
+	}
+
+	private Card reshuffleShoe() {
+		playerView.clearCards();
+		shoe.buildShoe();
+		return deal();
+	}
+
+	public Drill drill() {
+		return drill;
+	}
+
+	public static Drill drill(String drillString) {
+		for (Drill d : Drill.values()) {
+			if (drillString.toUpperCase().equals(d.toString().toUpperCase()))
+				return d;
+		}
+		return Drill.NONE;
 	}
 
 	public static DrillController createDrillController(PlayerView playerView) {
@@ -31,18 +61,9 @@ public class DrillController {
 		return drillController;
 	}
 
-	private void pickDeckStacker() {
-		shoe.setDeckStacker(DeckStackerFactory.getDeckStacker(playConfig
-				.drill()));
-	}
-
 	public void startPlay() {
 		setupPanelForNewGame(); // disable buttons until ready to play
 		waitForDeal(); // enable "Deal" button and wait for user
-	}
-
-	private void createShoe() {
-		shoe = new Shoe(playConfig.getDeckCount());
 	}
 
 	private Card deal() {
@@ -53,12 +74,6 @@ public class DrillController {
 			nextCard = reshuffleShoe();
 		}
 		return nextCard;
-	}
-
-	private Card reshuffleShoe() {
-		playerView.clearCards();
-		shoe.buildShoe();
-		return deal();
 	}
 
 	public boolean checkPlay(Play play, Card dealerCard, Hand playerHand) {
@@ -122,6 +137,14 @@ public class DrillController {
 		default:
 		}
 
+	}
+
+	public void drillChange(Drill drillCommand) {
+		drill = drillCommand;
+		playConfig.drillChange(drill);
+		pickDeckStacker();
+		playerView.clearCards();
+		waitForDeal();
 	}
 
 }

@@ -18,9 +18,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
-import com.blackjack.GameConfig;
-import com.blackjack.GameConfig.Drill;
 import com.blackjack.cards.Hand;
+import com.blackjack.gamecontrollers.DrillController;
+import com.blackjack.gamecontrollers.DrillController.Drill;
 import com.blackjack.player.Play;
 import com.blackjack.player.PlayerView;
 
@@ -101,13 +101,13 @@ public class PlayerPanel extends JPanel implements ActionListener {
 		String command = e.getActionCommand();
 
 		Play playCommand = Play.action(command);
-		Drill drillCommand = GameConfig.drill(command);
+		Drill drillCommand = DrillController.drill(command);
 
 		if (!playCommand.toString().toUpperCase().equals("NONE"))
 			playerView.buttonPressed(playCommand);
 		else {
 			if (!drillCommand.toString().toUpperCase().equals("NONE"))
-				System.out.println("drill type: " + drillCommand.toString());
+				playerView.drillChange(drillCommand);
 		}
 	}
 
@@ -188,25 +188,25 @@ public class PlayerPanel extends JPanel implements ActionListener {
 
 		JRadioButton radPairsOnly = new JRadioButton("Pairs Only");
 		radPairsOnly.setMnemonic(KeyEvent.VK_P);
-		radPairsOnly.setActionCommand(GameConfig.Drill.PAIRS.toString());
+		radPairsOnly.setActionCommand(DrillController.Drill.PAIRS.toString());
 		radPairsOnly.setSelected(true);
 		radioPanel.add(radPairsOnly, constraints);
 
 		JRadioButton radSoftOnly = new JRadioButton("Soft Hands Only (one Ace)");
 		radSoftOnly.setMnemonic(KeyEvent.VK_S);
-		radSoftOnly.setActionCommand(GameConfig.Drill.SOFT.toString());
+		radSoftOnly.setActionCommand(DrillController.Drill.SOFT.toString());
 		constraints.gridy = 1;
 		radioPanel.add(radSoftOnly, constraints);
 
 		JRadioButton radHardOnly = new JRadioButton("Hard Hands Only (no Aces)");
 		radHardOnly.setMnemonic(KeyEvent.VK_H);
-		radHardOnly.setActionCommand(GameConfig.Drill.HARD.toString());
+		radHardOnly.setActionCommand(DrillController.Drill.HARD.toString());
 		constraints.gridy = 2;
 		radioPanel.add(radHardOnly, constraints);
 
 		JRadioButton radAllTypes = new JRadioButton("All Hand Types");
 		radAllTypes.setMnemonic(KeyEvent.VK_A);
-		radAllTypes.setActionCommand(GameConfig.Drill.ALL.toString());
+		radAllTypes.setActionCommand(DrillController.Drill.ALL.toString());
 		constraints.gridy = 3;
 		radioPanel.add(radAllTypes, constraints);
 
@@ -329,5 +329,10 @@ public class PlayerPanel extends JPanel implements ActionListener {
 		});
 
 		return playerPanel;
+	}
+
+	public void clearCards() {
+		// Set cards back to jokers and clear hands
+		
 	}
 }
