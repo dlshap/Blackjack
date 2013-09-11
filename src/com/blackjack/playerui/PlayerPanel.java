@@ -33,6 +33,43 @@ public class PlayerPanel extends JPanel implements ActionListener {
 
 	private JButton[] buttons = new JButton[5];
 
+	private PlayerPanel() {
+		// show the panel
+		initPlayerPanel();
+		// attach a view to the panel
+		setPlayerView(PlayerView.createPlayerView(this));
+		// start the drill
+		playerView.startPlay();
+	}
+
+	private void initPlayerPanel() {
+		// Set up the content pane.
+		addComponentsToPane(this);
+		// don't let them do anything yet
+		disableAllButtons();
+	}
+
+	private void setPlayerView(PlayerView playerView) {
+		this.playerView = playerView;
+	}
+
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// Figure out the action from the button that got pressed
+		String command = e.getActionCommand();
+
+		Play playCommand = Play.action(command);
+		Drill drillCommand = DrillController.drill(command);
+
+		if (!playCommand.toString().toUpperCase().equals("NONE"))
+			playerView.buttonPressed(playCommand);
+		else {
+			if (!drillCommand.toString().toUpperCase().equals("NONE"))
+				playerView.drillChange(drillCommand);
+		}
+	}
+
 	public void showCards(Hand playerHand, Hand dealerHand) {
 		ImageIcon cardImage;
 
@@ -46,24 +83,9 @@ public class PlayerPanel extends JPanel implements ActionListener {
 		playerCard2Image.setIcon(cardImage);
 	}
 
-	private PlayerPanel() {
-		// show the panel
-		initPlayerPanel();
+	public void clearCards() {
+		// Set cards back to jokers and clear hands
 
-		// attach a view to the panel
-		setPlayerView(PlayerView.createPlayerView(this));
-
-		// start the drill
-		playerView.startPlay();
-	}
-
-	private void initPlayerPanel() {
-
-		// Set up the content pane.
-		addComponentsToPane(this);
-
-		// don't let them do anything yet
-		disableAllButtons();
 	}
 
 	public void disableButton(Play disableAction) {
@@ -84,30 +106,6 @@ public class PlayerPanel extends JPanel implements ActionListener {
 	public void enableAllButtons() {
 		for (JButton b : buttons) {
 			b.setEnabled(true);
-		}
-	}
-
-	private void setPlayerView(PlayerView playerView) {
-		this.playerView = playerView;
-	}
-
-	public PlayerView getPlayerView() {
-		return playerView;
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// Figure out the action from the button that got pressed
-		String command = e.getActionCommand();
-
-		Play playCommand = Play.action(command);
-		Drill drillCommand = DrillController.drill(command);
-
-		if (!playCommand.toString().toUpperCase().equals("NONE"))
-			playerView.buttonPressed(playCommand);
-		else {
-			if (!drillCommand.toString().toUpperCase().equals("NONE"))
-				playerView.drillChange(drillCommand);
 		}
 	}
 
@@ -329,10 +327,5 @@ public class PlayerPanel extends JPanel implements ActionListener {
 		});
 
 		return playerPanel;
-	}
-
-	public void clearCards() {
-		// Set cards back to jokers and clear hands
-		
 	}
 }
