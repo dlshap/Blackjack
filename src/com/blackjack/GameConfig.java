@@ -1,7 +1,6 @@
 package com.blackjack;
 
-import com.blackjack.gamecontrollers.DrillController;
-import com.blackjack.gamecontrollers.DrillController.Drill;
+import com.blackjack.gamecontrollers.Drill;
 
 
 public class GameConfig {
@@ -12,7 +11,7 @@ public class GameConfig {
 	// defaults:	
 	private int deckCount = 1;
 	private String strategy = "Basic";
-	private String drill = DrillController.Drill.ALL.toString();
+	private String drill = Drill.PAIRS.toString();
 	
 	
 

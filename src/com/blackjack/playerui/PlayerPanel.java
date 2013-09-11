@@ -19,8 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
 import com.blackjack.cards.Hand;
-import com.blackjack.gamecontrollers.DrillController;
-import com.blackjack.gamecontrollers.DrillController.Drill;
+import com.blackjack.gamecontrollers.Drill;
 import com.blackjack.player.Play;
 import com.blackjack.player.PlayerView;
 
@@ -46,6 +45,7 @@ public class PlayerPanel extends JPanel implements ActionListener {
 		// Set up the content pane.
 		addComponentsToPane(this);
 		// don't let them do anything yet
+		showJokers();
 		disableAllButtons();
 	}
 
@@ -53,14 +53,13 @@ public class PlayerPanel extends JPanel implements ActionListener {
 		this.playerView = playerView;
 	}
 
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// Figure out the action from the button that got pressed
 		String command = e.getActionCommand();
 
 		Play playCommand = Play.action(command);
-		Drill drillCommand = DrillController.drill(command);
+		Drill drillCommand = Drill.drill(command);
 
 		if (!playCommand.toString().toUpperCase().equals("NONE"))
 			playerView.buttonPressed(playCommand);
@@ -85,7 +84,8 @@ public class PlayerPanel extends JPanel implements ActionListener {
 
 	public void clearCards() {
 		// Set cards back to jokers and clear hands
-
+		showJokers();
+		disableAllButtons();
 	}
 
 	public void disableButton(Play disableAction) {
@@ -124,6 +124,12 @@ public class PlayerPanel extends JPanel implements ActionListener {
 		return constraints;
 	}
 
+	private void showJokers() {
+		dealerCardImage.setIcon(CardImage.getJokerIcon());
+		playerCard1Image.setIcon(CardImage.getJokerIcon());
+		playerCard2Image.setIcon(CardImage.getJokerIcon());
+	}
+
 	private void addComponentsToPane(Container pane) {
 		JButton button;
 		JLabel label;
@@ -139,7 +145,6 @@ public class PlayerPanel extends JPanel implements ActionListener {
 		pane.add(label, constraints);
 
 		dealerCardImage = new JLabel();
-		dealerCardImage.setIcon(CardImage.getJokerIcon());
 		constraints = defaultConstraints();
 		constraints.insets = new Insets(10, 0, 0, 0); // top padding
 		constraints.gridx = 1;
@@ -154,7 +159,6 @@ public class PlayerPanel extends JPanel implements ActionListener {
 		pane.add(label, constraints);
 
 		playerCard1Image = new JLabel();
-		playerCard1Image.setIcon(CardImage.getJokerIcon());
 		constraints = defaultConstraints();
 		constraints.insets = new Insets(10, 0, 0, 0); // top padding
 		constraints.gridx = 1;
@@ -162,7 +166,6 @@ public class PlayerPanel extends JPanel implements ActionListener {
 		pane.add(playerCard1Image, constraints);
 
 		playerCard2Image = new JLabel();
-		playerCard2Image.setIcon(CardImage.getJokerIcon());
 		constraints = defaultConstraints();
 		constraints.insets = new Insets(10, 0, 0, 0); // top padding
 		constraints.gridx = 2;
@@ -186,25 +189,25 @@ public class PlayerPanel extends JPanel implements ActionListener {
 
 		JRadioButton radPairsOnly = new JRadioButton("Pairs Only");
 		radPairsOnly.setMnemonic(KeyEvent.VK_P);
-		radPairsOnly.setActionCommand(DrillController.Drill.PAIRS.toString());
+		radPairsOnly.setActionCommand(Drill.PAIRS.toString());
 		radPairsOnly.setSelected(true);
 		radioPanel.add(radPairsOnly, constraints);
 
 		JRadioButton radSoftOnly = new JRadioButton("Soft Hands Only (one Ace)");
 		radSoftOnly.setMnemonic(KeyEvent.VK_S);
-		radSoftOnly.setActionCommand(DrillController.Drill.SOFT.toString());
+		radSoftOnly.setActionCommand(Drill.SOFT.toString());
 		constraints.gridy = 1;
 		radioPanel.add(radSoftOnly, constraints);
 
 		JRadioButton radHardOnly = new JRadioButton("Hard Hands Only (no Aces)");
 		radHardOnly.setMnemonic(KeyEvent.VK_H);
-		radHardOnly.setActionCommand(DrillController.Drill.HARD.toString());
+		radHardOnly.setActionCommand(Drill.HARD.toString());
 		constraints.gridy = 2;
 		radioPanel.add(radHardOnly, constraints);
 
 		JRadioButton radAllTypes = new JRadioButton("All Hand Types");
 		radAllTypes.setMnemonic(KeyEvent.VK_A);
-		radAllTypes.setActionCommand(DrillController.Drill.ALL.toString());
+		radAllTypes.setActionCommand(Drill.ALL.toString());
 		constraints.gridy = 3;
 		radioPanel.add(radAllTypes, constraints);
 
