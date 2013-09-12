@@ -6,13 +6,13 @@ import org.junit.Test;
 import com.blackjack.cards.Card;
 import com.blackjack.cards.Hand;
 import com.blackjack.strategy.BasicStrategy;
-import com.blackjack.strategy.Strategy;
+import com.blackjack.strategy.IStrategy;
 
 public class TestStrategy {
 	
 	private Card dealerCard;
 	private Hand playerHand = new Hand();
-	private Strategy strategy;
+	private IStrategy strategy;
 
 
 	@Before

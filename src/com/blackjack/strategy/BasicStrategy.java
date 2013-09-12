@@ -6,7 +6,7 @@ import com.blackjack.cards.Card;
 import com.blackjack.cards.Hand;
 import com.blackjack.player.Play;
 
-public class BasicStrategy implements Strategy {
+public class BasicStrategy implements IStrategy {
 
 	private static Play[][] playForPairs = new Play[10][10];
 	private static Play[][] playForSoftHands = new Play[10][10];

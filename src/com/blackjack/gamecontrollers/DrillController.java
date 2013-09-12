@@ -1,6 +1,5 @@
 package com.blackjack.gamecontrollers;
 
-import com.blackjack.GameConfig;
 import com.blackjack.cards.Card;
 import com.blackjack.cards.EmptyShoeException;
 import com.blackjack.cards.Hand;
@@ -9,12 +8,12 @@ import com.blackjack.deckstackers.DeckStackerFactory;
 import com.blackjack.player.Play;
 import com.blackjack.player.PlayerView;
 import com.blackjack.strategy.BasicStrategy;
-import com.blackjack.strategy.Strategy;
+import com.blackjack.strategy.IStrategy;
 
 public class DrillController {
 
 	private GameConfig playConfig = new GameConfig();
-	private Strategy strategy = BasicStrategy.createBasicStrategy();
+	private IStrategy strategy = BasicStrategy.createBasicStrategy();
 	private Shoe shoe;
 	private PlayerView playerView;
 	private Drill drill = Drill.PAIRS;

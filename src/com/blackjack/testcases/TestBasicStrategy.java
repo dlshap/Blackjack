@@ -13,12 +13,12 @@ import com.blackjack.cards.Card.Rank;
 import com.blackjack.cards.Card.Suit;
 import com.blackjack.player.Play;
 import com.blackjack.strategy.BasicStrategy;
-import com.blackjack.strategy.Strategy;
+import com.blackjack.strategy.IStrategy;
 
 public class TestBasicStrategy {
 
 	ArrayList<Card> deck = Card.newDeck();
-	Strategy basicStrategy = BasicStrategy.createBasicStrategy();
+	IStrategy basicStrategy = BasicStrategy.createBasicStrategy();
 	Hand playerHand = new Hand();
 	Card dealerCard;
 
