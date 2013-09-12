@@ -39,6 +39,7 @@ public class TestCard {
 		assertFalse(c1.equals(c2));
 	}
 	
+		
 	@Test
 	public void testIsRank() {
 		Card c = Card.makeCard(Rank.ACE, Suit.CLUBS);

@@ -25,5 +25,11 @@ public class TestSoftDeckStacker {
 		
 
 	}
+	
+	@Test
+	public void testNineteenAgainstSix()
+	{
+		Shoe shoe = new Shoe(1, new SoftDeckStacker());
+	}
 
 }
