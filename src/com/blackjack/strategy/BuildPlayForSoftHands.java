@@ -9,31 +9,33 @@ public class BuildPlayForSoftHands {
 		// Ten, Jack, Queen, King = (10-2) = 8
 		// Deuce = (2-2) = 0
 		// p[] = {2,3,4,5,6,7,8,9,10,A}
-		
+
 		Play[][] playForSoftHands = new Play[10][10];
 
-		{// Aces [9]
+		{// Ace-Ace (shouldn't need this...should go to pairs) [9]
 			Play p[] = { Play.STAND, Play.STAND, Play.STAND, Play.STAND,
 					Play.STAND, Play.STAND, Play.STAND, Play.STAND, Play.STAND,
 					Play.STAND };
 			playForSoftHands[9] = p;
 		}
-		{// Tens [8]
+		{// Blackjack (A-10) [8]
 			Play p[] = { Play.STAND, Play.STAND, Play.STAND, Play.STAND,
 					Play.STAND, Play.STAND, Play.STAND, Play.STAND, Play.STAND,
 					Play.STAND };
 			playForSoftHands[8] = p;
 		}
-		{// Nines [7]
+		{// Soft 20 (A-9) [7]
 			Play p[] = { Play.STAND, Play.STAND, Play.STAND, Play.STAND,
 					Play.STAND, Play.STAND, Play.STAND, Play.STAND, Play.STAND,
 					Play.STAND };
 			playForSoftHands[7] = p;
 		}
-		{// Eights [6]
+		{// Soft 19 (A-8) [6]
+			// if dealer must draw to soft 17 (implement later), double on
+			// dealer 6
 			Play p[] = { Play.STAND, Play.STAND, Play.STAND, Play.STAND,
-					Play.STAND, Play.STAND, Play.STAND, Play.STAND, Play.STAND,
-					Play.STAND };
+					Play.DOUBLE, Play.STAND, Play.STAND, Play.STAND,
+					Play.STAND, Play.STAND };
 			playForSoftHands[6] = p;
 		}
 		{// Sevens [5]

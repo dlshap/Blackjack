@@ -25,6 +25,17 @@ public class TestBasicStrategy {
 	@Before
 	public void setUp() throws Exception {
 	}
+	
+	@Test
+	public void testSoft19Against6() {
+		Card playerCard1 = Card.makeCard(Rank.ACE, Suit.CLUBS);
+		Card playerCard2 = Card.makeCard(Rank.EIGHT, Suit.CLUBS);
+		Card dealerCard = Card.makeCard(Rank.SIX, Suit.CLUBS);
+		playerHand.clear();
+		playerHand.add(playerCard1);
+		playerHand.add(playerCard2);
+		assertEquals(Play.DOUBLE,basicStrategy.getPlay(dealerCard,playerHand));
+	}
 
 	@Test
 	public void testAceThree() {
