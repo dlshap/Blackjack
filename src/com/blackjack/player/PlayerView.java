@@ -4,11 +4,10 @@ import com.blackjack.cards.Card;
 import com.blackjack.cards.Hand;
 import com.blackjack.gamecontrollers.Drill;
 import com.blackjack.gamecontrollers.DrillController;
-import com.blackjack.playerui.PlayerPanel;
 
 public class PlayerView {
 
-	private PlayerPanel playerPanel;
+	private IPlayerPanel playerPanel;
 	private DrillController drillCtr;
 	private Hand dealerHand = new Hand();
 	private Hand playerHand = new Hand();
@@ -19,11 +18,11 @@ public class PlayerView {
 		drillCtr = DrillController.createDrillController(this);
 	}
 
-	private void setPlayerPanel(PlayerPanel playerPanel) {
+	private void setPlayerPanel(IPlayerPanel playerPanel) {
 		this.playerPanel = playerPanel;
 	}
 
-	public static PlayerView createPlayerView(PlayerPanel playerPanel) {
+	public static PlayerView createPlayerView(IPlayerPanel playerPanel) {
 		PlayerView playerView = new PlayerView();
 		playerView.setPlayerPanel(playerPanel);
 		return playerView;

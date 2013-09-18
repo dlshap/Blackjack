@@ -6,11 +6,12 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.blackjack.RunDrill;
+import com.blackjack.player.IPlayerPanel;
 import com.blackjack.playerui.PlayerPanel;
 
 public class TestPlayerPanel {
 	
-	PlayerPanel playerPanel;
+	IPlayerPanel playerPanel;
 
 	@Before
 	public void setUp() throws Exception {

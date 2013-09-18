@@ -20,10 +20,11 @@ import javax.swing.JRadioButton;
 
 import com.blackjack.cards.Hand;
 import com.blackjack.gamecontrollers.Drill;
+import com.blackjack.player.IPlayerPanel;
 import com.blackjack.player.Play;
 import com.blackjack.player.PlayerView;
 
-public class PlayerPanel extends JPanel implements ActionListener {
+public class PlayerPanel extends JPanel implements ActionListener, IPlayerPanel {
 	// Todo:
 	// Set default drill type based on config
 
@@ -69,6 +70,10 @@ public class PlayerPanel extends JPanel implements ActionListener {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.blackjack.playerui.IPlayerPanel#showCards(com.blackjack.cards.Hand, com.blackjack.cards.Hand)
+	 */
+	@Override
 	public void showCards(Hand playerHand, Hand dealerHand) {
 		ImageIcon cardImage;
 
@@ -82,27 +87,47 @@ public class PlayerPanel extends JPanel implements ActionListener {
 		playerCard2Image.setIcon(cardImage);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.blackjack.playerui.IPlayerPanel#clearCards()
+	 */
+	@Override
 	public void clearCards() {
 		// Set cards back to jokers and clear hands
 		showJokers();
 		disableAllButtons();
 	}
 
+	/* (non-Javadoc)
+	 * @see com.blackjack.playerui.IPlayerPanel#disableButton(com.blackjack.player.Play)
+	 */
+	@Override
 	public void disableButton(Play disableAction) {
 		// disable button having selected Action
 		buttons[disableAction.index()].setEnabled(false);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.blackjack.playerui.IPlayerPanel#enableButton(com.blackjack.player.Play)
+	 */
+	@Override
 	public void enableButton(Play enableAction) {
 		buttons[enableAction.index()].setEnabled(true);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.blackjack.playerui.IPlayerPanel#disableAllButtons()
+	 */
+	@Override
 	public void disableAllButtons() {
 		for (JButton b : buttons) {
 			b.setEnabled(false);
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.blackjack.playerui.IPlayerPanel#enableAllButtons()
+	 */
+	@Override
 	public void enableAllButtons() {
 		for (JButton b : buttons) {
 			b.setEnabled(true);
@@ -317,7 +342,7 @@ public class PlayerPanel extends JPanel implements ActionListener {
 		});
 	}
 
-	public static PlayerPanel testCreatePlayerPanel() {
+	public static IPlayerPanel testCreatePlayerPanel() {
 		// TODO Auto-generated method stub
 
 		final PlayerPanel playerPanel = new PlayerPanel();
