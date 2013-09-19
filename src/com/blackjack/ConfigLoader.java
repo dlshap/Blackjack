@@ -5,6 +5,8 @@ import com.blackjack.strategy.Strategy;
 
 public final class ConfigLoader {
 	// Load configuration file
+	//
+	// For now, just return some "default" values
 	
 	public static int getDeckCount() {
 		return 1;

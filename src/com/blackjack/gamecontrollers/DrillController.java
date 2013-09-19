@@ -88,6 +88,7 @@ public class DrillController {
 
 	private Card reshuffleAndDeal() {
 		playerView.clearCards();
+		playerView.enableAllButtons();
 		shoe.buildShoe();
 		return deal();
 	}

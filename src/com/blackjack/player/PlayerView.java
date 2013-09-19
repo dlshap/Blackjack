@@ -102,7 +102,6 @@ public class PlayerView {
 	public void clearCards() {
 		emptyHands();
 		playerPanel.clearCards();
-		
 	}
 
 	public void drillChange(Drill drillCommand) {
