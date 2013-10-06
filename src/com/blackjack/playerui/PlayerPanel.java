@@ -46,8 +46,8 @@ public class PlayerPanel extends JPanel implements ActionListener, IPlayerPanel 
 		// Set up the content pane.
 		addComponentsToPane(this);
 		// don't let them do anything yet
-		showJokers();
-		disableAllButtons();
+		//showJokers();
+		//disableAllButtons();
 	}
 
 	private void setPlayerView(PlayerView playerView) {
@@ -149,7 +149,7 @@ public class PlayerPanel extends JPanel implements ActionListener, IPlayerPanel 
 		return constraints;
 	}
 
-	private void showJokers() {
+	public void showJokers() {
 		dealerCardImage.setIcon(CardImage.getJokerIcon());
 		playerCard1Image.setIcon(CardImage.getJokerIcon());
 		playerCard2Image.setIcon(CardImage.getJokerIcon());

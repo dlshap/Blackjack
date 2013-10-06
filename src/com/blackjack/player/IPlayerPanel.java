@@ -15,5 +15,7 @@ public interface IPlayerPanel {
 	public abstract void disableAllButtons();
 
 	public abstract void enableAllButtons();
+	
+	public abstract void showJokers();
 
 }

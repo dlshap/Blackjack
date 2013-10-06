@@ -25,6 +25,8 @@ public class PlayerView {
 	public static PlayerView createPlayerView(IPlayerPanel playerPanel) {
 		PlayerView playerView = new PlayerView();
 		playerView.setPlayerPanel(playerPanel);
+		playerPanel.showJokers();
+		playerPanel.disableAllButtons();
 		return playerView;
 	}
 
