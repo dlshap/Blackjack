@@ -28,8 +28,8 @@ public class BuildPlayForPairs {
 		}
 		{// Nines [7]
 			Play p[] = { Play.SPLIT, Play.SPLIT, Play.SPLIT, Play.SPLIT,
-					Play.SPLIT, Play.STAND, Play.SPLIT, Play.SPLIT, Play.SPLIT,
-					Play.SPLIT };
+					Play.SPLIT, Play.STAND, Play.SPLIT, Play.SPLIT, Play.STAND,
+					Play.STAND };
 			playForPairs[7] = p;
 		}
 		{// Eights [6]
